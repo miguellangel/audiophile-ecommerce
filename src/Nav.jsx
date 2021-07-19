@@ -1,7 +1,7 @@
 import React from 'react'
-import Throttle from './Throttle.js'
+import Throttle from './Throttle'
 
-const Nav = ({notNav}) => {
+const Nav = () => {
 
     var navElement = React.useRef()
 
@@ -11,13 +11,19 @@ const Nav = ({notNav}) => {
 
         let target = navElement.current.parentNode.classList
 
-        target.toggle("expand")
-    
-        document.querySelector("#root").addEventListener("click", (e) => target.toggle("expand"), {once: true})
+        /* name the function to be able to remove the listener*/
+        function handleClick (e) {
+            return target.toggle("expand")
 
+        }
 
-
-
+        if (!target.contains("expand")) {
+            target.toggle("expand")
+            /* on next tick - add click event listener */
+            setTimeout(() => {
+                window.addEventListener("click", handleClick, {once: true})
+            }, 1)
+        } else window.removeEventListener("click", handleClick)
     }
 
     /* detect scroll direction to hide nav*/
@@ -26,7 +32,7 @@ const Nav = ({notNav}) => {
         var previousScroll = prevYScrollOffset.current;
         let delta = 1;
         var passedThreshold = Math.abs(previousScroll - scrollTop) >= delta;
-        
+
         if (navElement.current && passedThreshold) {
             if (previousScroll < window.scrollY) {
                 /*console.log(`${previousScroll}, ${scrollTop}. scroll down`)*/
@@ -50,26 +56,28 @@ const Nav = ({notNav}) => {
     })
 
     return (
-        <div className="nav-container">
-            <div id="nav" ref = {navElement} >
+        <header className="nav-container">
+            <nav id="nav" ref = {navElement} role="navigation" aria-label="Main" >
                 <div id="navStart">
                     <a href="#h" className="navItem">audiophile</a>
                 </div>
                 <div className="navCenter">
+                    audiophile
                     <button id="togglepullDownBar" onClick = { handleExpand } ></button>
                     <div id="links">
-                        <a href="#home" className="navItem" onClick = { handleExpand }>HOME</a>
-                        <a href="#headphones" className="navItem" onClick = { handleExpand } >HEADPHONES</a>
-                        <a href="#speakers" className="navItem" onClick = { handleExpand } >SPEAKERS</a>
-                        <a href="#earphones" className="navItem" onClick = { handleExpand } >EARPHONES</a>
+                        <a href="#home" className="navItem" >HOME</a>
+                        <a href="#headphones" className="navItem" >HEADPHONES</a>
+                        <a href="#speakers" className="navItem" >SPEAKERS</a>
+                        <a href="#earphones" className="navItem" >EARPHONES</a>
                     </div>
                 </div>
                 <div id="navEnd">
+                    audiophile
                     {/*eslint-disable-next-line*/}
                     <a href="#cart" className="navItem"></a>
                 </div>
-            </div>
-        </div>
+            </nav>
+        </header>
     )
 }
 

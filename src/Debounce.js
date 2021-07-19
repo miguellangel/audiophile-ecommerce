@@ -18,4 +18,4 @@ export default function Debounce(func, wait, immediate) {
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
     };
-};
+}
