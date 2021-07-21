@@ -11,7 +11,7 @@ const ProductView = ({type, imgAlign, data}) => {
     })
 
     return (
-        <div className={`product ${type}`} style={(type === 'asBackground') ? {'--asBGImage': `url('${data.image}')`} : {}}>
+        <div className={`product ${type}`}>
             {type !== 'asBackground' &&
                 <div id="imgContainer" className={`align-${imgAlign}`}>
                     <img src={`${data.image}`} alt={`${data.name}`} />

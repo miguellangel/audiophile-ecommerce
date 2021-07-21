@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=Poppins:wght@200;400;600&display=swap');
 
 @mixin fluid-layout($devices, $operator:"==") {
 
@@ -445,6 +445,7 @@ body {
 				h1 {
 					color: white;
 					line-height: 1.4em;
+					text-shadow: 1px 1px 0.1em #e6e6e6;
 				}
 
 				button {
@@ -619,13 +620,10 @@ body {
 						}
 						width: 100%;
 						color: #191919;
-						background: #E9E9E9 var(--asBGImage) no-repeat 100% 50%/100%;
+						background: #E9E9E9 url("./assets/home/desktop/image-speaker-zx7.jpg") no-repeat 100% 50%/100%;
 
-						#descriptionContainer {
-							// scale: 0.5;
-
-							button {}
-						}
+						/* #descriptionContainer {
+						} */
 					}
 
 					&.split {
