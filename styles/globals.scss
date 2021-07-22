@@ -1,0 +1,347 @@
+@use './_mixins.scss' as mixins;
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=Poppins:wght@200;400;600&display=swap');
+
+
+html {scrollbar-width: thin;scrollbar-color: rgba(255,255,255,0.25) #161616;}
+
+body::-webkit-scrollbar {width: 5px}
+body::-webkit-scrollbar-thumb {background-color: rgba(255,255,255,0.5);border-radius:3em}
+body::-webkit-scrollbar-track {
+	background: #161616;
+}
+
+
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+	*, *::before, *::after {box-sizing: border-box;font-family: Poppins;}
+	a {color: inherit;text-decoration: none;}
+
+	&::before {
+		position: absolute;
+		font-size: xx-small;
+		// background: white;
+		color: white;
+		z-index: 3;
+		left: 50%;
+		top: 10vmin;
+		translate:-50%;
+
+
+		// @include mixins.fluid-layout("mobile-portrait") {
+		// 	content: "mobile-portrait"
+		// }
+		// @include mixins.fluid-layout("mobile-landscape") {
+		// 	content: "mobile-landscape"
+		// }
+		// @include mixins.fluid-layout("tablet-portrait") {
+		// 	content: "tablet-portrait"
+		// }
+		// @include mixins.fluid-layout("tablet-landscape") {
+		// 	content: "tablet-landscape"
+		// }
+		// @include mixins.fluid-layout("desktop-portrait") {
+		// 	content: "desktop-portrait"
+		// }
+		// @include mixins.fluid-layout("desktop-landscape") {
+		// 	content: "desktop-landscape"
+		// }
+
+	}
+
+	@media (orientation: portrait) {
+		font-size: clamp(10px, 1.5vmax, calc(0.35842vw + 0.75296em));
+	}
+	// @media screen and (min-width:187.5em) {font-size:1.625em}
+	@include mixins.fluid-layout("mobile-landscape") {
+		// p {font-size: 80%}
+
+	}
+	line-height: 1.5;
+	overflow-x: hidden;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	min-height: 100vh;
+	height: 1px;
+	background-color: #191919;
+	font-size: clamp(13px, 2vmin, calc(0.35842vmin + 0.75296em))
+	// max-width: 1920px;
+	
+
+	// * {font-size: inherit;}
+
+	
+}
+
+
+
+#__next {
+	@include mixins.fluid-layout(join(mixins.$portraitOnly, mobile-landscape)) {padding: 0;width: 100%}
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	max-width: 1100px;
+	height: max-content;
+	background: rgba(25, 25, 25, 1);
+	// padding: 0 10%;
+	position: relative;
+	justify-content: center;
+
+	header, img {user-select: none;}
+	
+	.nav-container {
+		@include mixins.fluid-layout(mobile-landscape) {width: 100% !important; height: var(--expand, fit-content) !important}
+		@include mixins.fluid-layout(desktop-portrait) {height: var(--expand, 10vmin) !important;}
+		@include mixins.fluid-layout(join(mixins.$portraitOnly, mobile-landscape)) {
+			width: 100%;
+			height: var(--expand, 10vmax);
+			
+		}
+		position: fixed;
+		display: flex;
+		justify-content: center;
+		z-index: 1;
+		width: calc(80% + 10px);
+		max-width: 1100px;
+		height: fit-content;
+		background: rgba(24, 24, 24, 0.95);
+		backdrop-filter: blur(5px);
+		border-bottom: 1px solid white;
+		top: 0;
+		left: 50%;
+		transform: translate(calc(-50% + 3px));
+		transition: transform 0.25s, height 0.25s, width 1s;
+		z-index: 2;
+		margin: 0 -3px;
+		user-select: none;
+	
+	
+		&.hide {
+			transform: translate(-50%, var(--hide, -10vmax));
+			width: calc(80% * 0.9);
+		}
+		&.expand {
+			@include mixins.fluid-layout(join(mixins.$portraitOnly, mobile-landscape)) {
+				@media (max-width: 768px) {
+					--slideIn: 0;
+					--expand: 25vmax;
+					--hide: -25vmax;
+				}
+			}
+		}
+	
+		#nav {
+			// @include mixins.fluid-layout(mobile-landscape) {grid-template-rows: 10vmin !important;}
+			@include mixins.fluid-layout(desktop-portrait) {width: calc(90%)}
+			@media (max-width: 768px) {
+				// width: 95%;
+				// height: 10vmax;
+				grid-template-rows: 10vmax;
+				grid-template-areas: "button logo cart";
+				grid-template-columns: repeat(3, auto);
+			}
+	
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+			sans-serif;
+			-webkit-font-smoothing: antialiased;
+			// min-height: 10vmin;
+			height: clamp(50px, 10vmin, 80px);
+			width: calc(90% - 10px);
+			display: grid;
+			z-index: 2;
+			grid-template-areas: "logo list cart";
+			grid-template-columns: repeat(3, auto);
+			justify-content: space-between;
+			align-items: center;
+	
+			a {
+				// font-size: 60%;
+				transition: transform 0.5s, text-shadow 0.25s;
+				display: inline-block;
+			}
+	
+			.navItem {
+				color: white;
+				text-decoration: none;
+				font-family: Poppins;
+				padding: 1vmin;
+				text-shadow: none;
+				
+	
+			}
+			#navStart {
+				@media (max-width: 768px) {
+					place-self: center;
+				}
+	
+				display: flex;
+				place-self: center start;
+				font-weight: 600;
+				grid-area: logo;
+	
+				.navItem {
+					/*  */
+					padding: 0;
+				}
+	
+			}
+	
+			.navCenter {
+	
+				@media (max-width: 768px) {
+					grid-area: button;
+					justify-content: center;
+				}
+	
+				display: flex;
+				transform: none;
+				flex-direction: row;
+				justify-content: space-evenly;
+				width: fit-content;
+				// max-width: 50vmin;
+				transition: width 0.25s, transform 2s;
+				font-weight: 600;
+				grid-area: list;
+				position: relative;
+				color: transparent;
+	
+	
+				#togglepullDownBar {
+					@media (max-width: 768px) {
+						order: -1;
+						display: inline-block;
+						background: url("../public/images/shared/tablet/icon-hamburger.svg") center no-repeat;
+						border: none;
+						cursor: pointer;
+					}
+	
+					display: none;
+					grid-area: button;
+					position: absolute;
+					height: 100%;
+					aspect-ratio: 1/1;
+				}
+				#links {
+					@media(max-width: 768px) {
+						width: 50%;
+						position: fixed;
+						display: flex;
+						flex-direction: column;
+						text-align: center;
+						left: 50%;
+						transform: translate(-50%, var(--slideIn, -40vmax));
+						// bottom: 0px;
+						top: 7vmax;
+						gap: 1vmax;
+						transition: transform 0.75s;
+						margin-bottom: 2vmax;
+					}
+	
+					a {transform: scale(0.75);}
+	
+					.navItem {
+						&:hover {
+							text-shadow: 1px 1px 1.5em hsl(63%, 50%, 100 / 0.5)
+						}
+					}
+	
+				}
+	
+			}
+	
+			#navEnd {
+				display: flex;
+				position: relative;
+				grid-area: cart;
+				justify-content: center;
+				align-items: center;
+				color: transparent;
+	
+	
+				.navItem {
+					background: url("../public/images/shared/desktop/icon-cart.svg") center/100% no-repeat;
+					height: 100%;
+					position: absolute;
+					aspect-ratio: 1/1;
+				}
+	
+			}
+		}
+	}
+	main {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+		align-items: center;
+		// @include mixins.fluid-layout(mobile-landscape) {
+		// 	font-size: xx-small;
+		// }
+	}
+	#footer {
+		background: rgba(25, 25, 25, 1);
+		color: white;
+
+		.columns-2-flex {
+			@media (orientation: portrait) {
+				--aspect-ratio: 4/3;
+			}
+			--aspect-ratio: 3/1;
+
+			div:last-of-type {
+				display: flex;
+				flex-flow: column;
+				align-items: flex-end;
+
+				h3 {text-align: right}
+				#link-icons {
+					display: flex;
+					flex-flow: row;
+					justify-content: right;
+					width: 100%;
+					gap: 5%;
+					a {
+						width: 30px;
+						aspect-ratio: 1/1;
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+
+button {
+	font-family: 'Poppins';
+	font-weight: 700;
+	font-size: inherit;
+	background: var(--btn-bg, transparent);
+	border: var(--btn-border, 1px solid var(--text-color));
+	color: var(--text-color, inherit);
+	padding: 0 2%;
+	// width: 12em;
+	aspect-ratio: 2/1;
+	cursor: pointer;
+	transition: background 250ms, color 250ms;
+
+	&:hover {
+		background: var(--btn__hover-bg, rgba(0,0,0, 0.1));color: var(--text__hover-color,#191919);
+	}
+}
+
+.columns-2-flex {
+	display: flex;
+	flex-flow: var(--flex-flow, row wrap);
+	width: 100%;
+	padding: 5%;
+	aspect-ratio: var(--aspect-ratio, 2/1);
+	gap: 2%;
+
+	div {
+		width: 49%;
+	}
+}
