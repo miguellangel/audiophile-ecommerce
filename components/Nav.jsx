@@ -1,5 +1,6 @@
 import React from 'react'
 import Throttle from './Throttle'
+import Link from 'next/link'
 
 /* nav is rendered throughout app, so styling is applied globally */
 
@@ -20,7 +21,7 @@ const Nav = () => {
 
             if (navElement.current && passedThreshold) {
                 if (previousScroll < window.scrollY) {
-                    console.log(`${previousScroll}, ${scrollTop}. scroll down`)
+                    // console.log(`${previousScroll}, ${scrollTop}. scroll down`)
                     navElement.current.parentNode.classList.add("hide")
                 } else if (previousScroll > window.scrollY) {
                     /*console.log(`${previousScroll}, ${scrollTop}. scroll up`)*/
@@ -65,22 +66,32 @@ const Nav = () => {
         <header className='nav-container'>
             <nav id='nav' ref = {navElement} role="navigation" aria-label="Main" >
                 <div id='navStart'>
-                    <a href="#h" className='navItem'>audiophile</a>
+                    <Link href="/">
+                        <a className='navItem'>audiophile</a>
+                    </Link>
                 </div>
                 <div className='navCenter'>
                     audiophile
                     <button id='togglepullDownBar' onClick = { handleExpand } ></button>
                     <div id='links'>
-                        <a href="#home" className='navItem' >HOME</a>
-                        <a href="#headphones" className='navItem' >HEADPHONES</a>
-                        <a href="#speakers" className='navItem' >SPEAKERS</a>
-                        <a href="#earphones" className='navItem' >EARPHONES</a>
+                        <Link href="/products/Headphones">
+                            <a className='navItem' >HEADPHONES</a>
+                        </Link>
+                        <Link href="/products/Speakers">
+                            <a className='navItem' >SPEAKERS</a>
+                        </Link>
+                        <Link href="/products/Earphones">
+                            <a className='navItem' >EARPHONES</a>
+                        </Link>
                     </div>
                 </div>
                 <div id='navEnd'>
                     audiophile
                     {/*eslint-disable-next-line*/}
-                    <a href="#cart" className='navItem'></a>
+                    <Link href="/shop">
+                        <a className='navItem'></a>
+
+                    </Link>
                 </div>
             </nav>
         </header>

@@ -1,11 +1,33 @@
 import '../styles/globals.scss'
 import Layout from '../components/layout'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`
+
+const theme = {
+	colors: {
+		primary: '#191919', 
+		secondary: '#d87c49',
+		textPrimary: 'white',
+	},
+}
 
 const MyApp = ({ Component, pageProps }) => {
 	return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
+		<>
+			<GlobalStyle />
+			<ThemeProvider theme= { theme }>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</ThemeProvider>
+		</>
 
 	)
 }
