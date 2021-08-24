@@ -1,0 +1,40 @@
+@mixin fluid-layout($devices, $operator:"==") {
+
+	@each $device in $devices {
+
+		@if $device == mobile-portrait {
+			@media (max-width: 576px) and (max-height: 1024px) and (max-aspect-ratio: 2/3) {
+				@content
+			}
+		}
+		@if $device == mobile-landscape {
+			@media (max-width: 1024px) and (max-height: 576px) and (min-aspect-ratio: 3/2) {
+				@content
+			}
+		}
+		@if $device == tablet-portrait {
+			@media (max-width: 1024px) and (min-width: 480px) and (min-aspect-ratio: 10/17) and (max-aspect-ratio: 1/1) {
+				@content
+			}
+		}
+		@if $device == tablet-landscape {
+			@media (max-width: 1440px) and (min-height: 468px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: 17/10) {
+				@content
+			}
+		}
+		@if $device == desktop-portrait {
+			@media (min-width: 682px) and (min-height: 1024px) and (min-aspect-ratio: 1/2) and (max-aspect-ratio: 2/3) {
+				@content
+			}
+		}
+		@if $device == desktop-landscape {
+			@media (max-width: 1920px) and (min-height: 576px) and (min-aspect-ratio: 3/2) and (max-aspect-ratio: 2/1) {
+				@content
+			}
+		}
+	}
+
+}
+
+$landscapeOnly: (mobile-landscape, tablet-landscape, desktop-landscape);
+$portraitOnly: (mobile-portrait, tablet-portrait, desktop-portrait);
