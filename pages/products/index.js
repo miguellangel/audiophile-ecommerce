@@ -1,9 +1,7 @@
 import Image from 'next/image'
-import React, { createElement, useEffect, useRef, createRef, useState, forwardRef } from 'react'
+import React, { useEffect, useRef, useState, forwardRef } from 'react'
 import ReactDOM from 'react-dom'
-import createPortal from 'react-dom'
 import myImage from "/public/images/product-xx59-headphones/desktop/image-product.jpg"
-import banner from '/public/images/shared/headphonesbannerOptimized.svg'
 import styles from '/styles/products.module.scss'
 import styled from 'styled-components'
 
@@ -58,14 +56,6 @@ const Sidebar = ({ onGetRef, filters }) => {
 	const [ selection, setSelection ] = useState([])
 
 
-	async function handleGetRefs() {
-		try {
-			let value = onGetRefs()
-			return value
-		} catch (e) {
-			console.log(e)
-		}
-	}
 	let expand = (div) => {
 		/* use class-driven transition to rotate the caret */
 		var caret = div.previousSibling.lastChild
@@ -154,33 +144,58 @@ const Sidebar = ({ onGetRef, filters }) => {
 }
 const Main = forwardRef((props, ref) => {
 
+	const [ data, setData ] = useState(props.data)
+	useEffect(() => {
+		setData(props.data)
+	}, [props.data])
+
+	async function handlePage (e) {
+		let newData = await (await fetch(`/api/collections/${props.type}/${e.currentTarget.value}`)).json()
+		setData(newData)
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<div ref={ ref } className={ styles.filtersApplied }>
-		</div>
-
-		<div className={ styles['products-container']}>
-			{[...Array(9).fill(1).map((item, index) =>
-				<div key={`main-item-${index}`} className={ styles['product-container']}>
-					<div className={ styles['img-container']}>
-						<Image src={ myImage } alt="img"/>
+			</div>
+			<div className={ styles['products-container']}>
+				{data['data'].map((product, index) =>
+					<div key={`productid-${product['id']}`} className={ styles['product-container']}>
+						<div className={ styles['img-container']}>
+							<Image src={ myImage } alt="img"/>
+						</div>
+						<div className={ styles['product-name']}>
+							<h3 id="description">{ `${product['attributes']['Model']}` }</h3>
+							<p>{`${product['attributes']['Manufacturer']}`}</p>
+							<p>
+								{  
+								`$${ product['attributes']['MSRP'] !== 'nan' 
+									? product['attributes']['MSRP']
+									: product['attributes']['Typical Price'] !== 'nan'
+										? product['attributes']['Typical Price']
+										: product['attributes']['Used Price']
+								}` }
+							</p>
+						</div>
 					</div>
-					<div className={ styles['product-name']}>
-						<p id="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit!</p>
-						<h3>{ `$${Math.floor(Math.random() * 3000)}` }</h3>
-					</div>
-				</div>
-			)]}
-
+				)}
+			</div>
+			<div className={styles["paginationContainer"]}>
+			{
+				Array(data['meta']['total_pages']).fill(0).map((item, index) => 
+					<span key={ `paginationKEY-${index}` }><button value = {`page/${index + 1}`} onClick={ handlePage }>{index + 1}</button></span>
+				)
+			}
+			</div>
 		</div>
-	</div>
 	)
 })
 Main.displayName = "Main"
 
-const Product = ({type, filters}) => {
+const Product = ({type, filters, data}) => {
 	const productsContainer = useRef(null)
 	const filtersApplied = useRef(null)
+	const [ products, setProducts ] = useState(data)
 
 	async function getRef() {
 		try {
@@ -192,13 +207,13 @@ const Product = ({type, filters}) => {
 	}
 
 	useEffect(() => {
-		console.log(type, filters)
-	})
+		setProducts(data)
+	}, [ data ])
 	return (
 		<>
 			<div ref = {productsContainer} className={styles.container}>
 				<Sidebar onGetRef={ getRef } filters={ filters }/>
-				<Main ref={ filtersApplied }/>
+				<Main ref={ filtersApplied } data={ products } type={ type }/>
 			</div>
 		</>
 	)

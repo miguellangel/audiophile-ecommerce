@@ -2,6 +2,7 @@ import '../styles/globals.scss'
 import Layout from '../components/layout'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -19,11 +20,13 @@ const theme = {
 }
 
 const MyApp = ({ Component, pageProps }) => {
+
 	return (
 		<>
 			<GlobalStyle />
 			<ThemeProvider theme= { theme }>
 				<Layout>
+					
 					<Component {...pageProps} />
 				</Layout>
 			</ThemeProvider>

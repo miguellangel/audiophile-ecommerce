@@ -77,8 +77,8 @@ const Nav = () => {
                         <Link href="/products/Headphones">
                             <a className='navItem' >HEADPHONES</a>
                         </Link>
-                        <Link href="/products/Speakers">
-                            <a className='navItem' >SPEAKERS</a>
+                        <Link href="/products/Featured">
+                            <a className='navItem' >FEATURED</a>
                         </Link>
                         <Link href="/products/Earphones">
                             <a className='navItem' >EARPHONES</a>
