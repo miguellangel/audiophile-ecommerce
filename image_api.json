@@ -1,0 +1,252 @@
+{
+  "kind": "customsearch#search",
+  "url": {
+    "type": "application/json",
+    "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+  },
+  "queries": {
+    "request": [
+      {
+        "title": "Google Custom Search - 1more1001",
+        "totalResults": "6640",
+        "searchTerms": "1more1001",
+        "count": 10,
+        "startIndex": 1,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "38121ba9751432736",
+        "searchType": "image"
+      }
+    ],
+    "nextPage": [
+      {
+        "title": "Google Custom Search - 1more1001",
+        "totalResults": "6640",
+        "searchTerms": "1more1001",
+        "count": 10,
+        "startIndex": 11,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "38121ba9751432736",
+        "searchType": "image"
+      }
+    ]
+  },
+  "context": {
+    "title": "Headphone Images"
+  },
+  "searchInformation": {
+    "searchTime": 0.361091,
+    "formattedSearchTime": "0.36",
+    "totalResults": "6640",
+    "formattedTotalResults": "6,640"
+  },
+  "spelling": {
+    "correctedQuery": "1more e1001",
+    "htmlCorrectedQuery": "\u003cb\u003e\u003ci\u003e1more e1001\u003c/i\u003e\u003c/b\u003e"
+  },
+  "items": [
+    {
+      "kind": "customsearch#result",
+      "title": "miberia Italia (@miberia_it) | Twitter",
+      "htmlTitle": "miberia Italia (@miberia_it) | Twitter",
+      "link": "https://pbs.twimg.com/media/E7XqE3MWYAMK2z6.jpg",
+      "displayLink": "twitter.com",
+      "snippet": "miberia Italia (@miberia_it) | Twitter",
+      "htmlSnippet": "miberia Italia (@miberia_it) | Twitter",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://twitter.com/miberia_it",
+        "height": 512,
+        "width": 1024,
+        "byteSize": 50862,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUGRyxIAeXpcNj1T-YxN65nGbHXVek-TU2kml-jpvZJAzA0X_GKApMGA&s",
+        "thumbnailHeight": 75,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "How to Update Firmware on 1MORE Headphones",
+      "htmlTitle": "How to Update Firmware on 1MORE Headphones",
+      "link": "https://cdn.shopify.com/s/files/1/1140/4626/files/firmware_blog.jpg?v=1584993513",
+      "displayLink": "usa.1more.com",
+      "snippet": "How to Update Firmware on 1MORE Headphones",
+      "htmlSnippet": "How to Update Firmware on 1MORE Headphones",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://usa.1more.com/blogs/reviews/how-to-update-firmware-on-1more-headphones",
+        "height": 683,
+        "width": 1024,
+        "byteSize": 88070,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTioUM9zJHopa4WaWeTVlXwKLJPQjY6txFcPkPPs4d9sSXsGV1e3dZnSA&s",
+        "thumbnailHeight": 100,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "1MORE Triple Driver In-Ear Earphones Hi-Res ... - Amazon.com",
+      "htmlTitle": "1MORE Triple Driver In-Ear Earphones Hi-Res ... - Amazon.com",
+      "link": "https://m.media-amazon.com/images/I/61r+4Mlyk9L._AC_SX569_.jpg",
+      "displayLink": "www.amazon.com",
+      "snippet": "61r+4Mlyk9L._AC_SX569_.jpg",
+      "htmlSnippet": "61r+4Mlyk9L._AC_SX569_.jpg",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.amazon.com/1MORE-Earphones-Headphones-Resolution-Smartphones/dp/B01A7G35S0",
+        "height": 707,
+        "width": 569,
+        "byteSize": 21561,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLQcLvQqD2Pm4PbkWQ6TTEXwlUcUKQsi8R6jHGX_uaXdOz_nBasRu05A&s",
+        "thumbnailHeight": 140,
+        "thumbnailWidth": 113
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "How to Update Firmware on 1MORE Headphones",
+      "htmlTitle": "How to Update Firmware on 1MORE Headphones",
+      "link": "http://cdn.shopify.com/s/files/1/1140/4626/articles/firmware_blog_grande.jpg?v=1584993625",
+      "displayLink": "usa.1more.com",
+      "snippet": "How to Update Firmware on 1MORE Headphones",
+      "htmlSnippet": "How to Update Firmware on 1MORE Headphones",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://usa.1more.com/blogs/reviews/how-to-update-firmware-on-1more-headphones",
+        "height": 400,
+        "width": 600,
+        "byteSize": 26684,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQyUUYlH-qgTSdiqCdXcBkYRN0Wkvr0cSDJyXamBZnQe9CJtLqcUsrhgA&s",
+        "thumbnailHeight": 90,
+        "thumbnailWidth": 135
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Обзор звука Colorfly c200 с наушниками 1more 1001 - YouTube",
+      "htmlTitle": "Обзор звука Colorfly c200 с наушниками \u003cb\u003e1more 1001\u003c/b\u003e - YouTube",
+      "link": "https://i.ytimg.com/vi/_wWNQtv1tCg/maxresdefault.jpg",
+      "displayLink": "www.youtube.com",
+      "snippet": "Обзор звука Colorfly c200 с наушниками 1more 1001 - YouTube",
+      "htmlSnippet": "Обзор звука Colorfly c200 с наушниками \u003cb\u003e1more 1001\u003c/b\u003e - YouTube",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.youtube.com/watch?v=_wWNQtv1tCg",
+        "height": 720,
+        "width": 1280,
+        "byteSize": 100726,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_z9_3GZWjASU_X57NGQuLVE0qvtHRmMTcImbpJ_hBZlTHQIdi8yvgM8&s",
+        "thumbnailHeight": 84,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Bang & Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "htmlTitle": "Bang &amp; Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "link": "https://crdms.images.consumerreports.org/f_auto,w_600/prod/products/cr/models/396508-wireless-portable-stereo-headphones-bang-olufsen-beoplay-e6-10001519.png",
+      "displayLink": "www.consumerreports.org",
+      "snippet": "Bang & Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "htmlSnippet": "Bang &amp; Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "mime": "image/png",
+      "fileFormat": "image/png",
+      "image": {
+        "contextLink": "https://www.consumerreports.org/products/headphones-29043/stereo-headphone-29903/bang-olufsen-beoplay-e6-396508/",
+        "height": 438,
+        "width": 600,
+        "byteSize": 32151,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToz0SWkF_88jc3GMiI8-iY7DTmKnamcX4JEKJ2NuK4WkSqvY43DbN5f4w&s",
+        "thumbnailHeight": 99,
+        "thumbnailWidth": 135
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "htmlTitle": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "link": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6172/6172056_sa.jpg;maxHeight=640;maxWidth=550",
+      "displayLink": "www.bestbuy.com",
+      "snippet": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "htmlSnippet": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.bestbuy.com/site/1more-triple-driver-wired-in-ear-headphones-titanium/6172056.p?skuId=6172056",
+        "height": 500,
+        "width": 500,
+        "byteSize": 20018,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYFRUj7qC9UCZjTmJBH-9NXY3Xeottth4qd2HcY7ORpev1qGyXQ5ONqts&s",
+        "thumbnailHeight": 130,
+        "thumbnailWidth": 130
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Bang & Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "htmlTitle": "Bang &amp; Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "link": "https://crdms.images.consumerreports.org/f_auto,w_600/prod/products/cr/models/396508-wireless-portable-stereo-headphones-bang-olufsen-beoplay-e6-10001520.jpg",
+      "displayLink": "www.consumerreports.org",
+      "snippet": "Bang & Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "htmlSnippet": "Bang &amp; Olufsen Beoplay E6 Headphone - Consumer Reports",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.consumerreports.org/products/headphones-29043/stereo-headphone-29903/bang-olufsen-beoplay-e6-396508/",
+        "height": 438,
+        "width": 600,
+        "byteSize": 56002,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOK60YEuKoW9eb3CEPYUuEriQ3ErOiaafyqtiaKAzsyGMrs78RPkMX3pk&s",
+        "thumbnailHeight": 99,
+        "thumbnailWidth": 135
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "htmlTitle": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "link": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6172/6172056_sa.jpg",
+      "displayLink": "www.bestbuy.com",
+      "snippet": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "htmlSnippet": "1MORE Triple Driver Wired In-Ear Headphones Titanium E1001 - Best Buy",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.bestbuy.com/site/1more-triple-driver-wired-in-ear-headphones-titanium/6172056.p?skuId=6172056",
+        "height": 500,
+        "width": 500,
+        "byteSize": 14466,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF6QOKIV_xxzsKMPNoJWEG5-cF6h7o71OKoHDHUtf3YINXv481HjnEVlY&s",
+        "thumbnailHeight": 130,
+        "thumbnailWidth": 130
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "1MORE Triple Driver In-Ear Earphones review - SoundGuys",
+      "htmlTitle": "1MORE Triple Driver In-Ear Earphones review - SoundGuys",
+      "link": "https://mk0soundguyshosprmrt.kinstacdn.com/wp-content/uploads/2018/03/1MORE-Triple-Driver-In-ears-8-1024x576.jpg",
+      "displayLink": "www.soundguys.com",
+      "snippet": "1MORE Triple Driver In-Ear Earphones review - SoundGuys",
+      "htmlSnippet": "1MORE Triple Driver In-Ear Earphones review - SoundGuys",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.soundguys.com/1more-triple-driver-in-ears-review-16647/",
+        "height": 576,
+        "width": 1024,
+        "byteSize": 61564,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIN5qtaeybYxRzNAIgJ5_KuT6MLqnZPmOwZTfAVOswSs6hV-4Ie5ouDw8&s",
+        "thumbnailHeight": 84,
+        "thumbnailWidth": 150
+      }
+    }
+  ]
+}

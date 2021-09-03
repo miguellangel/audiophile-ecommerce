@@ -54,21 +54,15 @@ const Test = () => {
     const router = useRouter()
     const pid = router.query.pid || []
 
-    const [count, setCount] = React.useState(0)
-
-    const cursor = React.useRef()
-    const cursorCoords = React.useRef([])
     const wrapper = React.useRef()
-
-    const globalID = React.useRef()
 
     const handleClick = (e) => {
         e.currentTarget.classList.toggle('expand')
     }
+
     React.useEffect(() => {
-        // document.addEventListener('mouseover', cursorEvent)
-        console.log(`/test/${ pid }`)
     })
+    
     return (
         <>
             <StyledWrapper ref= { wrapper }>

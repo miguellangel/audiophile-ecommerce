@@ -219,17 +219,21 @@
         .products-container {
             width: 100%;
             padding: 5%;
-            // background-color: white;
-            display: grid;
-            grid-template-areas: "product product product";
+            display: flex;
             gap: 1%;
+            align-content: flex-start;
+            flex-flow: row wrap;
+            justify-content: center;
             align-content: flex-start;
     
             .product-container {
-    
+                display: flex;
+                flex-flow: column nowrap;
+                flex: 1 0 30%;
+
                 &:hover{cursor: pointer;}
                 &:hover > .product-name {
-                    background: linear-gradient(0deg, rgba(0,0,0,0.1), white);
+                    background: linear-gradient(0deg, rgba(0,0,0,0.05), white);
     
                 }
     
@@ -237,17 +241,49 @@
                     --var: 'hello';
                 }
                 .product-name {
-                    padding: 5%;
                     border-radius: 0.5em;
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                    padding: 15%;
+                    transition: 1s ease;
+                    
                     &:hover {
                         // background: linear-gradient(0deg, rgba(0,0,0,0.1), white);
                         cursor: pointer;
     
                     }
-                    p {}
-                    h3 {}
+                    h3 {margin: 0;}
+                    p {
+                        text-align: center;
+                        color: #191919;
+                        padding: 0;
+                        margin: 0;
+
+                        &:first-of-type {
+                            color: #c9c9c9;
+                            font-weight: 400;
+                        }
+
+                    }
                 }
     
+            }
+        }
+        
+        .paginationContainer {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 2.5%;
+            align-content: center;
+            justify-content: center;
+
+            button {
+                padding: 2px;
+                font-weight: 300;
+                padding: 0;
+                aspect-ratio: 1/1;
+                height: 100%;
             }
         }
 
