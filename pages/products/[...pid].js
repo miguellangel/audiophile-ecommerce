@@ -1,12 +1,12 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import Product from './index.js'
+import Product from '../../components/Product.js'
 
-const DynamicRouter = ({ filters, data }) => {
+
+const DynamicRouter = ({ filters, data}) => {
 
     const router = useRouter()
     const pid = router.query.pid || []
-
 
     return (
         <Product type={ pid } filters={ filters } data = { data }/>
@@ -27,11 +27,12 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
 
-    const reqFilters = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products/${ params.pid }`)
-    const reqData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/collections/${ params.pid[0] }/page/1`)
-    const filters = await reqFilters.json()
-    const data = await reqData.json()
-    
-    return { props: { filters, data} }
+    const DynamicFilters = await import(`../../prerender/filters/${ params.pid[0] }`)
+    const filters = await JSON.parse(JSON.stringify(DynamicFilters.default)) ?? null
+
+    const DynamicData = await import(`../../prerender/products/${ params.pid[0] }`)
+    const data =await JSON.parse(JSON.stringify(DynamicData.default)) ?? null
+
+    return { props: { filters, data } }
 }
 export default DynamicRouter
