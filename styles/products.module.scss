@@ -106,168 +106,231 @@
         flex-flow: column wrap;
         position: relative;
 
-        .filtersApplied {
+        .header {
             display: flex;
-            flex-flow: row wrap;
-            gap: 2%;
-            position: fixed;
-            z-index: 1;
-            max-width: calc(1100px * 0.62);
-            min-width: 350px;
-            translate: 0 -50px;
-            padding: 8px 0;
+            justify-content: space-between;
+            align-items: center;
+            flex-flow: column nowrap;
 
+            span { display: flex; justify-content: space-around; align-items: center;max-height: clamp(50px, 50%, 200px);}
 
-            .filters {
-                background: red;
-
-                .btnWrapper {
-
-                    display: flex;
-					flex-flow: row nowrap;
-					cursor: pointer;
-					box-shadow: 0px 0px 1em -5px #c9c9c9;
-					border-radius: 3em;
-					justify-content: center;
-					align-items: center;
-					overflow: hidden;
-					gap: 3px;
-
-					& > * {
-						padding: 0.5em 1em;
-					}
-
-                    .btnLabel {
-                        width: 70%;
-						margin: 0;
-						height: min-content;
-						user-select: none;
-                    }
-                    .btn-removeFilter {
-                        border:none;
-						width: 30%;
-						height: 110%;
-						background: transparent;
-						border-radius: 0 3em 3em 0;
-						box-shadow: inset 0px 0px 1px rgba(0,0,0, 0.1);
-						transition: 128ms;
-						cursor: pointer;
-
-						&:hover {
-							//background: palevioletred;
-							box-shadow: inset 0px 0px 1em 1px palevioletred;
-							text-shadow: 0px 0px 1em red;
-							color: red;
-						}
-                    }
-                }
-            }
-            .item {
-                padding: 0 3%;
-                flex: 0 1 25%;
+            .filtersApplied {
                 display: flex;
-                gap: 10%;
-                border: 1px solid #00191919;
-                border-radius: 3em;
-                cursor: pointer;
-                transition: 250ms;
-                animation: 750ms ease forwards;
-                // animation-duration: 750ms;
-                // animation-timing-function: ease;
-                // animation-direction: forwards;
-
-                &:hover {
-                    // background: rgba(216, 124, 73, 1);
-                    // color: white;
-                    text-shadow: 1px 1px 0.5em white;
-                    box-shadow: 0px -5px 0.5em #00191919;
+                flex-flow: row wrap;
+                gap: 2%;
+                position: relative;
+                z-index: 1;
+                max-width: calc(1100px * 0.62);
+                min-width: 350px;
+                translate: 0 -50px;
+                padding: 8px 0;
+                 &:empty::before {
+                    content: 'Selected filters will appear here.';
+                    position: relative;
+                    color:rgba(0,0,0, 0.2)
+                 }
+    
+                .filters {
+                    background: red;
+    
+                    .btnWrapper {
+    
+                        display: flex;
+                        flex-flow: row nowrap;
+                        cursor: pointer;
+                        box-shadow: 0px 0px 1em -5px #c9c9c9;
+                        border-radius: 3em;
+                        justify-content: center;
+                        align-items: center;
+                        overflow: hidden;
+                        gap: 3px;
+    
+                        & > * {
+                            padding: 0.5em 1em;
+                        }
+    
+                        .btnLabel {
+                            width: 70%;
+                            margin: 0;
+                            height: min-content;
+                            user-select: none;
+                        }
+                        .btn-removeFilter {
+                            border:none;
+                            width: 30%;
+                            height: 110%;
+                            background: transparent;
+                            border-radius: 0 3em 3em 0;
+                            box-shadow: inset 0px 0px 1px rgba(0,0,0, 0.1);
+                            transition: 128ms;
+                            cursor: pointer;
+    
+                            &:hover {
+                                //background: palevioletred;
+                                box-shadow: inset 0px 0px 1em 1px palevioletred;
+                                text-shadow: 0px 0px 1em red;
+                                color: red;
+                            }
+                        }
+                    }
                 }
-
-                p {flex: 1 1 60%}
-                button {
-                    flex: 1 1 40%;
-                    padding: unset;
-                    --btn__hover-bg: #ff7171;
-                    --text__hover-color: unset;
-                    border-radius: 0 3em 3em 0;
-                    margin-right: -17%;
-                    box-shadow: none;
-                    transition: 500ms;
-
+                .item {
+                    padding: 0 3%;
+                    flex: 0 1 25%;
+                    display: flex;
+                    gap: 10%;
+                    border: 1px solid #00191919;
+                    border-radius: 3em;
+                    cursor: pointer;
+                    transition: 250ms;
+                    animation: 750ms ease forwards;
+                    // animation-duration: 750ms;
+                    // animation-timing-function: ease;
+                    // animation-direction: forwards;
+    
                     &:hover {
-                        box-shadow: inset -10px 1px 1em rgba(0,0,0,0.2);
+                        // background: rgba(216, 124, 73, 1);
+                        // color: white;
+                        text-shadow: 1px 1px 0.5em white;
+                        box-shadow: 0px -5px 0.5em #00191919;
                     }
-                }
-
-                @keyframes delete {
-                    to {
-                        opacity: 0;
-                        transform: translate(-30%);
+    
+                    p {flex: 1 1 60%}
+                    button {
+                        flex: 1 1 40%;
+                        padding: unset;
+                        --btn__hover-bg: #ff7171;
+                        --text__hover-color: unset;
+                        border-radius: 0 3em 3em 0;
+                        margin-right: -17%;
+                        box-shadow: none;
+                        transition: 500ms;
+    
+                        &:hover {
+                            box-shadow: inset -10px 1px 1em rgba(0,0,0,0.2);
+                        }
                     }
-                }
-                @keyframes add {
-                    from {opacity: 0}
-                    to {
-                        opacity: 1;
+    
+                    @keyframes delete {
+                        to {
+                            opacity: 0;
+                            transform: translate(-30%);
+                        }
                     }
+                    @keyframes add {
+                        from {opacity: 0}
+                        to {
+                            opacity: 1;
+                        }
+                    }
+    
                 }
-
+    
             }
-
         }
+       
 
         .products-container {
-            width: 100%;
-            padding: 5%;
             display: flex;
-            gap: 1%;
-            align-content: flex-start;
             flex-flow: row wrap;
-            justify-content: center;
-            align-content: flex-start;
-    
-            .product-container {
-                display: flex;
-                flex-flow: column nowrap;
-                flex: 1 0 30%;
+            justify-content: space-between;
+            align-items: baseline;
+            
+            &.active {
+                --ZI: 0;
+                --bg: red;
 
-                &:hover{cursor: pointer;}
-                &:hover > .product-name {
-                    background: linear-gradient(0deg, rgba(0,0,0,0.05), white);
-    
+            }
+            .card {
+
+
+                .face {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+                    border-radius: 10px;
+                    text-align: center;
+                    z-index: 0;
+                    transition: 500ms ease;
+
                 }
-    
-                .img-container {
-                    --var: 'hello';
+
+                .front {
+                    -webkit-transform-style: preserve-3d;
+                    transform-style: preserve-3d;
+                    flex: 1 0 30%;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: var(--ZI, 2);
+
+
+                    .product-container {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        flex: 1 0 30%;
+                        background: linear-gradient(0deg, white, #e9e9e9 59%);
+                        .img-container {
+                            color: black;
+                        }
+                        .product-name {
+                            border-radius: 0.5em;
+                            display: flex;
+                            flex-flow: column nowrap;
+                            align-items: center;
+                            padding: 15%;
+                            transition: 1s ease;
+                            
+                            &:hover {
+                                cursor: pointer;
+            
+                            }
+                            h3 {margin: 0;}
+                            p {
+                                text-align: center;
+                                color: #191919;
+                                padding: 0;
+                                margin: 0;
+        
+                                &:first-of-type {
+                                    color: #c9c9c9;
+                                    font-weight: 400;
+                                }
+        
+                            }
+                        }
+            
+                    }
                 }
-                .product-name {
-                    border-radius: 0.5em;
+                .back {
+                    z-index: 1;
+                    background: var(--bg, transparent);
                     display: flex;
                     flex-flow: column nowrap;
-                    align-items: center;
-                    padding: 15%;
-                    transition: 1s ease;
-                    
-                    &:hover {
-                        // background: linear-gradient(0deg, rgba(0,0,0,0.1), white);
-                        cursor: pointer;
-    
-                    }
-                    h3 {margin: 0;}
-                    p {
-                        text-align: center;
-                        color: #191919;
-                        padding: 0;
-                        margin: 0;
+                    justify-content: center;
 
-                        &:first-of-type {
-                            color: #c9c9c9;
-                            font-weight: 400;
+                    & > * {
+                        -webkit-transform: rotateY(180deg);
+                        transform: rotateY(180deg);
+
+                        & > button {
+                            border-radius: 3em;
                         }
+                    }
+                    .detailsBtnCntr{--x: red}
+                    .addToCartCntr {--y: blue}
+                    .addToFvrtCtr {
+                        input {
+                            mix-blend-mode: luminosity;
 
+                            &:hover, &:focus {
+                                mix-blend-mode: darken;
+                            }
+                        }
                     }
                 }
-    
+
             }
         }
         
@@ -284,6 +347,10 @@
                 padding: 0;
                 aspect-ratio: 1/1;
                 height: 100%;
+
+                &:focus {
+                    // background:rgba(0,0,0, 0.1);
+                }
             }
         }
 
