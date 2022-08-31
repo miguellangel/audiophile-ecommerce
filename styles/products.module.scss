@@ -316,6 +316,8 @@
 
                         & > button {
                             border-radius: 3em;
+                            opacity: var(--opacity, 1);
+                            transition: 100ms;
                         }
                     }
                     .detailsBtnCntr{--x: red}
@@ -347,6 +349,7 @@
                 padding: 0;
                 aspect-ratio: 1/1;
                 height: 100%;
+                transition: 250ms;
 
                 &:focus {
                     // background:rgba(0,0,0, 0.1);
@@ -355,4 +358,8 @@
         }
 
     }
+}
+
+.productDetailsWrapper {
+    --hello: 'k'
 }

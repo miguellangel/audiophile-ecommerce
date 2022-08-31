@@ -4,7 +4,6 @@ import ReactDOM, { createPortal } from 'react-dom'
 import myImage from "/public/images/product-xx59-headphones/desktop/image-product.jpg"
 import styles from '/styles/products.module.scss'
 import styled from 'styled-components'
-import { css, keyframes } from 'styled-components'
 import ProductDetails from './ProductDetails'
 import heart from '/public/images/icons/heart.png'
 
@@ -52,27 +51,7 @@ const StyledFilterButton = styled.div`
 		}
 	}
 `
-const AnimMixin = css`
-	animation: ${(props) => props.theme}
-`
 
-const AnimIn = keyframes`
-	0% {
-		transform: translateZ(0) rotateY(0);
-	}
-	100% {
-		transform: translateZ(160px) rotateY(180deg);
-	}
-`
-const AnimOut = keyframes`
-  0% {
-    transform: translateZ(0) rotateY(0);
-  }
-  100% {
-    transform: translateZ(-260px) rotateY(-180deg);
-  }
-
-`
 const StyledCard = styled.div`
 	width: 100%;
 	width: 100%;
@@ -81,11 +60,13 @@ const StyledCard = styled.div`
 	flex: 0 0 32%;
 	margin: 1% 0;
 	position: relative;
+	transition: 500ms;
+	transform: var(--rotate, rotateY(0deg));
 
 	&:hover{cursor: pointer;}
 	&:hover  .product-name {background: linear-gradient(0deg, rgba(0,0,0,0.05), white)}
   	&.active {
-		animation: ${AnimIn} 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+		--rotate: rotateY(180deg);
 		--ZI: 0;
 		--bg: white;
 		box-shadow: 0px 0px 3em -10px #c9c9c9;
@@ -93,7 +74,7 @@ const StyledCard = styled.div`
 
 	}
 	&.remove {
-		animation: ${AnimOut} 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+		--opacity: 0;
 	}
 `
 
@@ -189,18 +170,15 @@ const Sidebar = ({ onGetRef, filters }) => {
 		</aside>
 	)
 }
-const theme = { in: AnimIn, out: AnimOut }
+
 const Main = forwardRef((props, ref) => {
 	const [ mount, setMount ] = useState()
 	const [ data, setData ] = useState(props.data)
-	const [ curPage, setCurPage ] = useState(1)
+	// const [ curPage, setCurPage ] = useState(1)
 
 	const [ curProduct, setCurProduct ] = useState()
 	const [ card, setCard ] = useState()
-	const prevPage = useRef(null)
-	const anim = useRef(theme['in'])
-	
-
+	const curPage = useRef([null, 1])
 
 	const firstPageBtn = useRef()
 	function handlePopup (product, e) {
@@ -242,23 +220,21 @@ const Main = forwardRef((props, ref) => {
 	async function handlePage (e) {
 		const page = e.currentTarget.value.split('/')[1]
 		let newData = await (await fetch(`/api/collections/${props.type}/${e.currentTarget.value}`)).json()
-		setData(newData)
-		prevPage.current = curPage
-		setCurPage(page)
+		setTimeout(() => setData(newData), 251)
+
+		let prevPage = curPage.current.pop()
+		curPage.current = [prevPage, page]
+
+		const btns = document.querySelectorAll(`.${styles['paginationContainer']} > span > button`)
+		btns[curPage.current[1] - 1].style.background = 'rgba(0,0,0,0.1)'
+		if (curPage.current[0]) btns[curPage.current[0] - 1].style.backgroundColor = 'transparent';
+	
 	}
 
 	useEffect(() => {
-		console.log(heart)
-		console.log(anim.current)
 		setData(props.data)
-		const btns = document.querySelectorAll(`.${styles['paginationContainer']} > span > button`)
-		btns[curPage - 1].style.background = 'rgba(0,0,0,0.1)'
 
-		if (prevPage.current) {
-			btns[prevPage.current - 1].style = '';
-		}
-
-	}, [props, curPage])
+	}, [props])
 
 	return (
 		<div className={styles.wrapper}>
@@ -272,7 +248,7 @@ const Main = forwardRef((props, ref) => {
 			<div className={ styles['products-container']}>
 				{data['data'].map((product, index) =>
 					<React.Fragment key={`productid-${product.id}`}>
-						<StyledCard theme = {anim.current} className={styles.card} onClick= { handleCard }>
+						<StyledCard className={styles.card} onClick= { handleCard }>
 							<div className={`${styles.front} ${styles.face}`} >
 								<div className={ `${styles['product-container']} ${styles.front} ${styles.face}`} >
 									<div className={ styles['img-container']}>
@@ -316,7 +292,7 @@ const Main = forwardRef((props, ref) => {
 				}
 			</div>
 			<div className={styles["paginationContainer"]}>
-				<span><button ref={ firstPageBtn } value={'page/1'}>1</button></span>
+				<span><button ref={ firstPageBtn } value={'page/1'} onClick={ handlePage }>1</button></span>
 				{
 					Array(data['meta']['total_pages'] - 1).fill(0).map((item, index) => 
 						<span key={ `paginationKEY-${index}` }><button value = {`page/${index + 2}`} onClick={ handlePage }>{index + 2}</button></span>
