@@ -9,7 +9,7 @@ const DynamicRouter = ({ filters, data}) => {
     const pid = router.query.pid || []
 
     return (
-        <Product type={ pid } filters={ filters } data = { data }/>
+        <Product type={ pid[0] } filters={ filters } data = { data }/>
     )
 
 }
