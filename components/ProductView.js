@@ -5,7 +5,7 @@ const ProductView = ({type, imgAlign, data}) => {
         <div className={`${styles.product} ${styles[`${type}`]}`}> {/* help from https://stackoverflow.com/questions/33949469/using-css-modules-how-do-i-define-more-than-one-style-name/33949534 */}
             {type !== 'asBackground' &&
                 <div id={styles.imgContainer}> 
-                    <img src={`${data.image}`} alt={`${data.name}`} />
+                    <img src={`${data.image}`} alt={`${data.name}`} height={type === 'main' ? '75%' : 'initial'}/>
                 </div>
             }
             <div id={styles.descriptionContainer}>
