@@ -3,7 +3,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import ProductView from '../components/ProductView'
 
-import { useEffect, useState, useRef } from 'react'
+	import Link from 'next/link'
+
 
 
 const Home = () => {
@@ -81,21 +82,27 @@ const Home = () => {
 					</div>
 				</div>
 				<div id={styles.content}>
-					<div id={styles.['content__categories-container']}>
+					<div id={styles.content__categoriesContainer}>
 						<div className={styles.content__categories}>
 							<img src={'images/shared/desktop/image-earphones.png'} alt="EARPHONES" style={{translate: "0 5%"}}/>
 							<h6>EARPHONES</h6>
-							<a href="EARPHONES">SHOP</a>
+							<Link href='/products/earphones'>
+								<a>SHOP</a>
+							</Link>
 						</div>
 						<div className={styles.content__categories}>
 							<img src={'images/shared/desktop/image-speakers.png'} alt="SPEAKERS" />
 							<h6>SPEAKERS</h6>
-							<a href="#SPEAKERS">SHOP</a>
+							<Link href='/products/Speakers'>
+								<a>SHOP</a>
+							</Link>
 						</div>
 						<div className={styles.content__categories}>
 							<img src={'images/shared/desktop/image-headphones.png'} alt="HEADPHONES" />
 							<h6>HEADPHONES</h6>
-							<a href="#headphones">SHOP</a>
+							<Link href='/products/headphones'>
+								<a>SHOP</a>
+							</Link>
 						</div>
 					</div>
 					<div id={styles.content__featured}>

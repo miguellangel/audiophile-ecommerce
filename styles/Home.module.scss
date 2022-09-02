@@ -156,7 +156,7 @@
 	align-content: space-around;
 	gap: 5vmin;
 
-	&__categories-container {
+	&__categoriesContainer {
 		@include mixins.fluid-layout(mixins.$portraitOnly) {
 			// aspect-ratio: initial;
 			flex-wrap: wrap-reverse;
@@ -236,6 +236,48 @@
 			flex-flow: row nowrap;
 			border-radius: 0.5em;
 
+			#imgContainer {
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+				width: 50%;
+
+				&.align {
+					&-right {order: 1}
+				}
+			}
+			#descriptionContainer {
+				display: flex;
+				flex-flow: column;
+				justify-content: center;
+				gap: 5%;
+				align-content: flex-start;
+				align-items: flex-start;
+				width: 50%;
+				padding: 0 5%;
+				aspect-ratio: 2/1;
+
+				&> * {
+					margin: 0;
+				}
+
+				p {
+					@media (orientation: portrait) {max-width: 100%}
+					max-width: 75%
+				}
+				button {
+					@include mixins.fluid-layout((mobile-landscape, mobile-portrait)) {
+						width: max-content;
+						padding: 0 3%
+					}
+
+					--btn-border: 1px solid #191919;
+					--btn__hover-bg: #191919;
+					--text__hover-color: #e6e6e6;
+				}
+
+			}
+
 			&.asBackground, &.split {
 				@media (orientation: portrait) {
 					aspect-ratio: 2/1 !important;
@@ -248,15 +290,17 @@
 
 			}
 			&.main {
-				background: #D87C49 url(../public/images/home/desktop/pattern-circles.svg) no-repeat;
+				background: #D87C49 url(../public/images/home/desktop/pattern-circles.svg) -500% 0% no-repeat;
 				width: 100%;
 				aspect-ratio: 2/1;
 				color: white;
+				overflow: hidden;
 				
 				#imgContainer img {
 					@media (orientation: portrait) {height: 35%;place-self: center}
-					width: auto;
-					height: 75%;
+					object-position: 0 6px;
+					// width: auto;
+					// height: 75%;
 					
 				}
 				#descriptionContainer {
@@ -300,47 +344,6 @@
 					background-color: rgba(0,0,0, 0.1);
 					height: 100%;
 				}
-			}
-			#imgContainer {
-				display: flex;
-				justify-content: center;
-				align-items: flex-end;
-				width: 50%;
-
-				&.align {
-					&-right {order: 1}
-				}
-			}
-			#descriptionContainer {
-				display: flex;
-				flex-flow: column;
-				justify-content: center;
-				gap: 5%;
-				align-content: flex-start;
-				align-items: flex-start;
-				width: 50%;
-				padding: 0 5%;
-				aspect-ratio: 2/1;
-
-				&> * {
-					margin: 0;
-				}
-
-				p {
-					@media (orientation: portrait) {max-width: 100%}
-					max-width: 75%
-				}
-				button {
-					@include mixins.fluid-layout((mobile-landscape, mobile-portrait)) {
-						width: max-content;
-						padding: 0 3%
-					}
-
-					--btn-border: 1px solid #191919;
-					--btn__hover-bg: #191919;
-					--text__hover-color: #e6e6e6;
-				}
-
 			}
 		}
 	}

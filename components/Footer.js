@@ -22,7 +22,7 @@ const Footer = () => {
 						<div id="link-icons">
 							<a href="#facebook-link" style={{background: `url(${facebookIcon.src}) no-repeat`}}> </a>
 							<a href="#twitter-link" style={{background: `url(${twitterIcon.src}) no-repeat`}}> </a>
-							<a href="instagram-link" style={{background: `url(${instagramIcon.src}) no-repeat`}}> </a>
+							<a href="#instagram-link" style={{background: `url(${instagramIcon.src}) no-repeat`}}> </a>
 						</div>
 					</div>
 				</div>
