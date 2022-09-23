@@ -3,10 +3,11 @@ import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 import { Main, Sidebar } from '../../components/Product.js'
 import styles from '/styles/products.module.scss'
+import path from 'path'
 
-import { db } from '../../firebase/config'
+import { db } from '/firebase/config.js'
 import { query, collection, limit, getDoc, getDocs, doc } from "firebase/firestore"
-import getData from '../../firebase/getStaticData'
+import getData from '/firebase/getStaticData'
 
 
 const DynamicRouter = ({filters, response}) => {
@@ -15,8 +16,7 @@ const DynamicRouter = ({filters, response}) => {
 	const [ data, setData ] = useState(response)
 	
 	useEffect(() => {setData(response);console.log(router.asPath, data)}, [router.asPath]) // reset data every time route changes
-	// useEffect(() => console.log('rerender', router.asPath, data))
-	
+	useEffect(() => console.log(`${process.cwd()}firebase`))
 	const productsContainer = useRef(null)
 	const filtersApplied = useRef(null)
 
