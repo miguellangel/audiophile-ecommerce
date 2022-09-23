@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React from 'react'
 import styles from '../../styles/shop.module.scss'
 import Image from "next/image"
@@ -10,6 +11,19 @@ const Shop = () => {
     })
     return (
         <>
+            <Head>
+				<title>Checkout - Audiophile</title>
+				<meta name="description" content="A mock audiophile e-commerce site!"/>
+				<link rel="icon" href="/favicon.ico" />
+				
+				<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+				{/* Chrome, Firefox OS and Opera */}
+				<meta name="theme-color" content="#161616" />
+				{/* Windows Phone */}
+				<meta name="msapplication-navbutton-color" content="#161616" />
+				{/* iOS Safari */}
+				<meta name="apple-mobile-web-app-status-bar-style" content="#161616" />
+			</Head>
             <div id={styles.shopWrapper}>
                 <button id={styles.backButton} onClick={() => history.back()}>go back</button>
                 <div id={styles.shopContainer}>

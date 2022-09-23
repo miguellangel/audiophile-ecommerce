@@ -2,8 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import ProductView from '../components/ProductView'
-
-	import Link from 'next/link'
+import Link from 'next/link'
 
 
 
@@ -74,52 +73,51 @@ const Home = () => {
 
 			<div id={styles.showcase} className={styles.vh100}>
 					{/* <ProductView type="main" imgAlign="right" data={data.products.headphones[0]} /> */}
-					<div className={styles.productItem}>
-						<h6>NEW PRODUCT</h6>
-						<h1>XX99 MARK II HEADPHONES</h1>
-						<p>Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</p>
-						<button id={styles.productItemButton}>SEE PRODUCT</button>
+				<div className={styles.productItem}>
+					<h6>NEW PRODUCT</h6>
+					<h1>XX99 MARK II HEADPHONES</h1>
+					<p>Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</p>
+					<button id={styles.productItemButton}>SEE PRODUCT</button>
+				</div>
+			</div>
+				
+			<div id={styles.content}>
+				<div id={styles.content__categoriesContainer}>
+					<div className={styles.content__categories}>
+						<img src={'images/shared/desktop/image-earphones.png'} alt="EARPHONES" style={{translate: "0 5%"}}/>
+						<h6>EARPHONES</h6>
+						<Link href='/products/Earphones?page=1'>
+							<a>SHOP</a>
+						</Link>
+					</div>
+					<div className={styles.content__categories}>
+						<img src={'images/shared/desktop/image-speakers.png'} alt="SPEAKERS" />
+						<h6>SPEAKERS</h6>
+						<Link href='/products/Speakers?page=1'>
+							<a>SHOP</a>
+						</Link>
+					</div>
+					<div className={styles.content__categories}>
+						<img src={'images/shared/desktop/image-headphones.png'} alt="HEADPHONES" />
+						<h6>HEADPHONES</h6>
+						<Link href='/products/Headphones?page=1'>
+							<a>SHOP</a>
+						</Link>
 					</div>
 				</div>
-				<div id={styles.content}>
-					<div id={styles.content__categoriesContainer}>
-						<div className={styles.content__categories}>
-							<img src={'images/shared/desktop/image-earphones.png'} alt="EARPHONES" style={{translate: "0 5%"}}/>
-							<h6>EARPHONES</h6>
-							<Link href='/products/earphones'>
-								<a>SHOP</a>
-							</Link>
-						</div>
-						<div className={styles.content__categories}>
-							<img src={'images/shared/desktop/image-speakers.png'} alt="SPEAKERS" />
-							<h6>SPEAKERS</h6>
-							<Link href='/products/Speakers'>
-								<a>SHOP</a>
-							</Link>
-						</div>
-						<div className={styles.content__categories}>
-							<img src={'images/shared/desktop/image-headphones.png'} alt="HEADPHONES" />
-							<h6>HEADPHONES</h6>
-							<Link href='/products/headphones'>
-								<a>SHOP</a>
-							</Link>
-						</div>
-					</div>
-					<div id={styles.content__featured}>
-						<ProductView type="main" imgAlign="left" data={data.products.speakers[0]} />
-						<ProductView type="asBackground" imgAlign="right" data={data.products.speakers[1]} />
-						<ProductView type="split" imgAlign="left" data={data.products.earphones[0]}/>
-					</div>
-					<div id={styles.content__about}>
-						<div><h1>BRINGING YOU <br></br>THE<span> BEST </span>AUDIO GEAR</h1><p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p></div>
-						<div><img src="images/home/desktop/image-best-gear.jpg" alt="The best audio gear" /></div>
-					</div>
-					<div id="showData">
-						
-					</div>
+				<div id={styles.content__featured}>
+					<ProductView type="main" imgAlign="left" data={data.products.speakers[0]} />
+					<ProductView type="asBackground" imgAlign="right" data={data.products.speakers[1]} />
+					<ProductView type="split" imgAlign="left" data={data.products.earphones[0]}/>
 				</div>
-
-
+				<div id={styles.content__about}>
+					<div><h1>BRINGING YOU <br></br>THE<span> BEST </span>AUDIO GEAR</h1><p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p></div>
+					<div><img src="images/home/desktop/image-best-gear.jpg" alt="The best audio gear" /></div>
+				</div>
+				<div id="showData">
+					
+				</div>
+			</div>
 		</>
 	)
 }

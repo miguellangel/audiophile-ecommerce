@@ -4,27 +4,29 @@
     @extend .padding-large;
     width: 100%;
     min-height: 200px;
-    margin-top: 78px;
+    margin-top: var(--expand, clamp(50px, 10vmin, 80px));
+    @include mixins.fluid-layout(mixins.$portraitOnly) {margin-top: var(--expand, clamp(50px, 10vmax, 80px))}
     background-color: #f9f9f9;
     display: flex;
     flex-flow: column nowrap;
+    transition: 0.25s;
 
     #backButton {
-        max-width: 12vmin;
+        max-width: max-content;
         color: #a9a9a9;
     }
     #shopContainer {
         @extend .padding-medium;
         display: flex;
+        flex-flow: row wrap;
         justify-content: center;
-        align-items: start;
         gap: 5%;
 
         #formContainer {
             @extend .padding-small;
             @extend .boxShadowStandard;
             border-radius: 1em;
-            flex: 1 1 75%;
+            flex: 0 1 clamp(50%, 75%, 100%);
 
 
             form {
@@ -55,10 +57,11 @@
         #checkoutContainer {
             @extend .padding-small;
             @extend .boxShadowStandard;
-            @extend .flex-center;
+            @extend .flex;
             flex-flow: column nowrap;
-            flex: 1 1 20%;
+            flex: 0 1 clamp(10%, 20%, 100%);
             border-radius: 1em;
+            height: max-content;
 
             #checkoutCart {
                 width: 100%;

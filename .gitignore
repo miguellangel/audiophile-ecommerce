@@ -53,3 +53,12 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 #amplify-do-not-edit-end
+
+#firebase-do-not-edit-start
+firebase/*
+firebase-debug.log
+firebase.json
+#firebase-do-not-edit-end
+
+.ipynb-checkpoints/*
+*.ipynb

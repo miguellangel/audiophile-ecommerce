@@ -4,7 +4,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: var(--expand, clamp(50px, 10vmin, 80px));
+    @include mixins.fluid-layout(mixins.$portraitOnly) {margin-top: var(--expand, clamp(50px, 10vmax, 80px))}
+    transition: 0.25s;
+    @include mixins.fluid-layout(mixins.$portraitOnly) {flex-flow: row wrap;}
 
     &.loading {
         input {
@@ -18,7 +21,7 @@
         }
     }
 
-    .sidebar {
+    aside.sidebar {
         &::before {
             position: relative;
             content: "Filter +";
@@ -26,14 +29,18 @@
             font-weight:600;
             color: grey;
         }
-        width: 28%;
         display: flex;
+        flex: 1 1 28%;
         flex-flow: column nowrap;
         align-items: center;
         box-shadow: 1px 1px 0.2em #00191919;;
         z-index:0;
         background: white;
         padding-top: 5%;
+        @include mixins.fluid-layout(mixins.$portraitOnly) {
+            flex: 1 1 100%;
+            order: 2;
+        }
 
         .filter {
             width: 85%;
@@ -99,7 +106,8 @@
     }
     .wrapper {
     
-        width: 72%;
+        flex: 1 1 72%;
+        @include mixins.fluid-layout(mixins.$portraitOnly) {flex: 1 1 100%}
         padding: 5%;
         background: white;
         display: flex;
@@ -124,6 +132,8 @@
                 min-width: 350px;
                 translate: 0 -50px;
                 padding: 8px 0;
+                justify-content: center;
+                transition: 1s;
                  &:empty::before {
                     content: 'Selected filters will appear here.';
                     position: relative;
@@ -140,7 +150,7 @@
                         cursor: pointer;
                         box-shadow: 0px 0px 1em -5px #c9c9c9;
                         border-radius: 3em;
-                        justify-content: center;
+                        justify-content: space-between;
                         align-items: center;
                         overflow: hidden;
                         gap: 3px;
@@ -157,13 +167,14 @@
                         }
                         .btn-removeFilter {
                             border:none;
-                            width: 30%;
+                            width: clamp(5px, 30%, 50px);
                             height: 110%;
                             background: transparent;
                             border-radius: 0 3em 3em 0;
                             box-shadow: inset 0px 0px 1px rgba(0,0,0, 0.1);
                             transition: 128ms;
                             cursor: pointer;
+                            text-align: center;
     
                             &:hover {
                                 //background: palevioletred;
