@@ -2,6 +2,12 @@ import '../styles/globals.scss'
 import Layout from '../components/layout'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+/* String.replaceAll() polyfill */
+if (typeof String.prototype.replaceAll === "undefined") {
+	String.prototype.replaceAll = function (match, replace) {
+	  return this.replace(new RegExp(match, 'g'), () => replace);
+	}
+  }
 
 const GlobalStyle = createGlobalStyle`
   body {

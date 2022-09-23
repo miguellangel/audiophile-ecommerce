@@ -77,9 +77,6 @@ const Nav = () => {
                         <Link href="/products/Headphones?page=1">
                             <a className='navItem' >HEADPHONES</a>
                         </Link>
-                        <Link href="/products/Speakers?page=1">
-                            <a className='navItem' >SPEAKERS</a>
-                        </Link>
                         <Link href="/products/Earphones?page=1">
                             <a className='navItem' >EARPHONES</a>
                         </Link>

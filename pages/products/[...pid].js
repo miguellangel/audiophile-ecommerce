@@ -59,7 +59,6 @@ export const getStaticPaths = async () => {
 		paths: [
 			{ params: { pid: ['Headphones'], page: 1 } },
 			{ params: { pid: ['Earphones'], page: 1 } },
-			{ params: { pid: ['Speakers'], page: 1 } }
 		],
 		fallback: false
 	}
