@@ -19,7 +19,7 @@ module.exports = phase => {
 
 		webpack(config) {
 			config.plugins.push(new webpack.EnvironmentPlugin(isDev ? myEnv : {}))
-			if (isDev) return config // only use dotenv locally on dev
+			return config 
 		},
 	}
 }
