@@ -16,17 +16,10 @@ module.exports = phase => {
 
 	return {
 		reactStrictMode: false,
+
 		webpack(config) {
-			config.plugins.push(new webpack.EnvironmentPlugin(myEnv))
-			return config
+			config.plugins.push(new webpack.EnvironmentPlugin(isDev ? myEnv : {}))
+			if (isDev) return config // only use dotenv locally on dev
 		},
 	}
 }
-
-// module.exports = {
-// 	reactStrictMode: false,
-// 	webpack(config) {
-//         config.plugins.push(new webpack.EnvironmentPlugin(myEnv))
-//         return config
-//     }
-// }
