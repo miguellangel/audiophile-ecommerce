@@ -55,6 +55,7 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 
 #firebase-do-not-edit-start
+.firebase/*
 firebase/*
 firebase-debug.log
 firebase.json
