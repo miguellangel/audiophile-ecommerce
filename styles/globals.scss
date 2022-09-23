@@ -120,7 +120,7 @@ body {
 	
 		&.hide {
 			transform: translate(0, var(--hide, -10vmax));
-			width: calc(80% * 0.9);
+			// width: calc(80% * 0.9);
 		}
 		&.expand {
 			@include mixins.fluid-layout(join(mixins.$portraitOnly, mobile-landscape)) {
@@ -128,6 +128,10 @@ body {
 					--slideIn: 0;
 					--expand: 25vmax;
 					--hide: -25vmax;
+					&+main {
+						--expand: 25vmax;
+					}
+
 				}
 			}
 		}

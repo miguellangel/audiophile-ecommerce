@@ -74,13 +74,10 @@ const Nav = () => {
                     audiophile
                     <button id='togglepullDownBar' onClick = { handleExpand } ></button>
                     <div id='links'>
-                        <Link href="/products/Headphones">
+                        <Link href="/products/Headphones?page=1">
                             <a className='navItem' >HEADPHONES</a>
                         </Link>
-                        <Link href="/products/Speakers">
-                            <a className='navItem' >SPEAKERS</a>
-                        </Link>
-                        <Link href="/products/Earphones">
+                        <Link href="/products/Earphones?page=1">
                             <a className='navItem' >EARPHONES</a>
                         </Link>
                     </div>
