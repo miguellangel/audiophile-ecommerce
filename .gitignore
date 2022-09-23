@@ -57,6 +57,8 @@ amplifytools.xcconfig
 #firebase-do-not-edit-start
 .firebase/*
 firebase/*
+!firebase/config.js
+!firebase/getStaticData.js
 firebase-debug.log
 firebase.json
 #firebase-do-not-edit-end

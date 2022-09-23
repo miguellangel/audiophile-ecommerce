@@ -7,7 +7,7 @@ import path from 'path'
 
 import { db } from '/firebase/config.js'
 import { query, collection, limit, getDoc, getDocs, doc } from "firebase/firestore"
-import getData from '/firebase/getStaticData'
+import getData from '/firebase/getStaticData.js'
 
 
 const DynamicRouter = ({filters, response}) => {
