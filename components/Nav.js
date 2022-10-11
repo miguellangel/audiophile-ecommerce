@@ -7,13 +7,13 @@ import Link from 'next/link'
 const Nav = () => {
 
     var navElement = React.useRef()
-    
+
     /* client-side rendering only */
     if (process.browser) {
         var prevYScrollOffset = React.useRef(window.scrollY)
 
         /* detect scroll direction to hide nav*/
-        window.addEventListener("scroll", Throttle( () => {
+        window.addEventListener("scroll", Throttle(() => {
             var scrollTop = window.scrollY;
             var previousScroll = prevYScrollOffset.current;
             let delta = 1;
@@ -31,16 +31,16 @@ const Nav = () => {
                 }
                 prevYScrollOffset.current = scrollTop;
             }
-        }, 50), {useCapture: true})
+        }, 50), { useCapture: true })
 
     }
 
-    function handleExpand () {
+    function handleExpand() {
 
         let target = navElement.current.parentNode.classList
 
         /* name the function to be able to remove the listener*/
-        function handleClick (e) {
+        function handleClick(e) {
             return target.toggle("expand")
 
         }
@@ -49,7 +49,7 @@ const Nav = () => {
             target.toggle("expand")
             /* on next tick - add click event listener */
             setTimeout(() => {
-                window.addEventListener("click", handleClick, {once: true})
+                window.addEventListener("click", handleClick, { once: true })
             }, 1)
         } else window.removeEventListener("click", handleClick)
     }
@@ -64,7 +64,7 @@ const Nav = () => {
 
     return (
         <header className='nav-container'>
-            <nav id='nav' ref = {navElement} role="navigation" aria-label="Main" >
+            <nav id='nav' ref={navElement} role="navigation" aria-label="Main" >
                 <div id='navStart'>
                     <Link href="/">
                         <a className='navItem'>audiophile</a>
@@ -72,12 +72,12 @@ const Nav = () => {
                 </div>
                 <div className='navCenter'>
                     audiophile
-                    <button id='togglepullDownBar' onClick = { handleExpand } ></button>
+                    <button id='togglepullDownBar' onClick={handleExpand} ></button>
                     <div id='links'>
-                        <Link href="/products/Headphones?page=1">
+                        <Link href="/products/Headphones?limit=9&sort=name-asc">
                             <a className='navItem' >HEADPHONES</a>
                         </Link>
-                        <Link href="/products/Earphones?page=1">
+                        <Link href="/products/Earphones?limit=9&sort=name-asc">
                             <a className='navItem' >EARPHONES</a>
                         </Link>
                     </div>
