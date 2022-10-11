@@ -7,10 +7,11 @@ import Link from 'next/link'
 const Nav = () => {
 
     var navElement = React.useRef()
+    var prevYScrollOffset = React.useRef()
 
     /* client-side rendering only */
     if (process.browser) {
-        var prevYScrollOffset = React.useRef(window.scrollY)
+        prevYScrollOffset.current = window.scrollY
 
         /* detect scroll direction to hide nav*/
         window.addEventListener("scroll", Throttle(() => {

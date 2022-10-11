@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
 import styles from '../../styles/shop.module.scss'
-import Image from "next/image"
 
 // import Item1 from '../../public/images/cart/image-xx99-mark-one-headphones.jpg'
 
@@ -123,7 +122,7 @@ const Item = ({src, name, price, qty}) => {
     return (
         <div className={styles.checkoutItem}>
             <div id={styles.itemImg}>
-                <img src={src} width='50px' height='50px' />
+                <img src={src} width='50px' height='50px' alt="shop"/>
             </div>
             <div id={styles.itemName}>
                 <span>{name}</span>

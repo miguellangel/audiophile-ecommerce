@@ -43,7 +43,7 @@ const ProductItems = ({data, router, handlePage}) => {
 
     function handlePopup(product, e) {
         e.stopPropagation()
-        console.log(e.currentTarget, product)
+        // console.log(e.currentTarget, product)
         setCurProduct(product)
         setMount(document.querySelector('#main'))
     }
@@ -70,11 +70,11 @@ const ProductItems = ({data, router, handlePage}) => {
     }
     function handleAddtoCart(product, e) {
         e.stopPropagation()
-        console.log('add to cart', product)
+        // console.log('add to cart', product)
     }
     function handleAddtoFavs(product, e) {
         e.stopPropagation()
-        console.log('add to favs', product)
+        // console.log('add to favs', product)
     }
     const updateData = async () => {
         await handlePage().then(v => setItems(v))

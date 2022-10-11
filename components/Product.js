@@ -101,7 +101,6 @@ const Sidebar = ({ receiveRef, filters }) => {
 
     let handleRemoveFilter = (e) => {
         let filterName = e.target.previousElementSibling.textContent
-        console.log(filterName, selection)
         let ref = selection.filter(item => item.filter === filterName)[0].ref
         ref.checked = false;
         handleSelection(null, ref)
@@ -152,9 +151,9 @@ const Main = ({ filterRef, data, router }) => {
     const sortSelect = useRef()
 
     const submitQuery = async e => {
-        console.log(e.currentTarget.tagName)
+
         const page = e.currentTarget.tagName === "SELECT" ? null : e.currentTarget.value
-            
+
         const limitOptions = limitSelect.current?.options
         const limitValue = limitOptions[limitOptions.selectedIndex].value
         const sortOptions = sortSelect.current?.options
@@ -198,11 +197,9 @@ const Main = ({ filterRef, data, router }) => {
 
         // disable previous/next if on first/last respectively 
         let reqQuery = `/api/collections/${type}/${router.query.limit ?? 9}/${orderVal}/${startVal}`
-        console.log(reqQuery)
 
         let xx = await fetch(reqQuery).then(v => v.json()).catch(() => null)
-        console.log('received', xx)
-        
+
         return xx
     }
 
