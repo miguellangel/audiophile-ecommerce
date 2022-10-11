@@ -86,14 +86,14 @@ const Home = () => {
 					<div className={styles.content__categories}>
 						<img src={'images/shared/desktop/image-earphones.png'} alt="EARPHONES" style={{translate: "0 5%"}}/>
 						<h6>EARPHONES</h6>
-						<Link href='/products/Earphones?page=1'>
+						<Link href='/products/Earphones'>
 							<a>SHOP</a>
 						</Link>
 					</div>
 					<div className={styles.content__categories}>
 						<img src={'images/shared/desktop/image-headphones.png'} alt="HEADPHONES" />
 						<h6>HEADPHONES</h6>
-						<Link href='/products/Headphones?page=1'>
+						<Link href='/products/Headphones'>
 							<a>SHOP</a>
 						</Link>
 					</div>
