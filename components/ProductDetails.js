@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import ReactDOM from 'react-dom'
 import styles from './../styles/products.module.scss'
 import styled from 'styled-components'
 import { keyframes, css } from "styled-components"
@@ -176,11 +177,22 @@ const ShakingButton = styled.button`
 	}
 `
 
-
-const ProductDetails = ({setMount, product, setCurProduct}) => {
-    const [ anim, setAnim ] = useState(theme['in'])
+const Portal = ({children}) => {
+    
+    return (
+        <>
+            ReactDOM.createPortal(
+                {children},
+                document.querySelector('main#main')
+            )
+        </>
+    )
+}
+const ProductDetails = ({ product, toggleMount }) => {
+    const [image, setImage] = useState(images.items[1].link)
+    const [anim, setAnim] = useState(theme['in'])
     const wrapper = useRef()
-    const [ image, setImage ] = useState(images.items[1].link)
+    
     const handleShowDetails = (e) => {
         document.querySelector('.gallery').classList.toggle('flip')
     }
@@ -190,31 +202,39 @@ const ProductDetails = ({setMount, product, setCurProduct}) => {
         /* finish animation before unmounting */
         setTimeout(() => {
             // updateStyle()
-            setMount(null)
-            setCurProduct(null)
+            product.current = null
+            toggleMount()
         }, 600)
     }
-    
-    useEffect(() => {
-    })
-    return (
-        <StyledPopup theme = { anim } className={`${styles.productDetailsWrapper} ${styles['swing-in-top-fwd']}`} ref = { wrapper } >
-            <div className={`closePopupContainer`}><button onClick={ handleUnmount }>x</button></div>
-            <div className="gallery">
-                <div className="productOptions">
-                    <div className="header"><h1>{ `${product.attributes.Manufacturer} ${product.attributes.Model}` }</h1></div>
-                    <div>☆☆☆☆☆</div>
-                </div>
-                <div className="specs">
-                    <ShakingButton>+ details</ShakingButton>
-                </div>
 
-            </div>
-			<div className="page">
-				<span><button>&lt;</button></span>
-				<span><button onClick={handleShowDetails}>&gt;</button></span>
-			</div>
-        </StyledPopup>
-    )
+    useEffect(() => {
+        console.log("hello i changed")
+    })
+
+    if (product.current) {
+        return (
+            <Portal>
+                <StyledPopup theme={anim} className={`${styles.productDetailsWrapper} ${styles['swing-in-top-fwd']}`} ref={wrapper} >
+                    <div className={`closePopupContainer`}><button onClick={handleUnmount}>x</button></div>
+                    <div className="gallery">
+                        <div className="productOptions">
+                            <div className="header"><h1>{`${product.current.manufacturer} ${product.current.name}`}</h1></div>
+                            <div>☆☆☆☆☆</div>
+                        </div>
+                        <div className="specs">
+                            <ShakingButton>+ details</ShakingButton>
+                        </div>
+
+                    </div>
+                    <div className="page">
+                        <span><button>&lt;</button></span>
+                        <span><button onClick={handleShowDetails}>&gt;</button></span>
+                    </div>
+                </StyledPopup>
+            </Portal>
+        )
+    }
+    
+    return null
 }
 export default ProductDetails

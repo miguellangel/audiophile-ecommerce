@@ -1,5 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useReducer, useRef, useEffect, memo } from 'react'
 import styles from '/styles/products.module.scss'
 import styled from 'styled-components'
 import Image from 'next/image'
@@ -27,46 +26,70 @@ const StyledCard = styled.div`
 		--bg: white;
 		box-shadow: 0px 0px 3em -10px #c9c9c9;
 		z-index: 2;
+	}
 
-	}
-	&.remove {
-		--opacity: 0;
-	}
+        &.remove {
+        --opacity: 0;
+        }
 `
+const updateState = (state, action) => {
+    switch(action.type) {
+        case 'toggle_loading': {
+            return {...state, loading: !state.loading}
+        }
+        case 'set_items': {
+            return {...state, items: action.newItems}
+        }
+        case 'toggle_mounted': {
+            return {...state, mounted: !state.mounted}
+        }
+        default: {console.log("Unknown Action")}
+    }
+}
 
 const ProductItems = ({data, router, handlePage}) => {
-    const [loading, setLoading] = useState(true)
-    const [items, setItems] = useState()
-    const [mount, setMount] = useState()
-    const [curProduct, setCurProduct] = useState()
-    const [card, setCard] = useState()
+    const initialState = {
+        loading: true,
+        items: data,
+        mounted: false
+    }
+    const [state, dispatch] = useReducer(updateState, initialState)
+
+    const cardQueue = useRef([])
+    const cardData = useRef()
 
     function handlePopup(product, e) {
         e.stopPropagation()
-        // console.log(e.currentTarget, product)
-        setCurProduct(product)
-        setMount(document.querySelector('#main'))
+        cardData.current = product
+        dispatch({
+            type: 'toggle_mounted'
+        })
     }
     const handleCard = (e) => {
-        const target = e.currentTarget
+        // use array ref reduction and not state to manage cards, this makes logic cleaner
 
-        // logic to have only one active card
-        if (card && card === target) {
-            setCard(null)
-            target.classList.remove('active')
-            setTimeout(() => target.classList.toggle('remove'), 1) // wrapping this in setTimeout removes lil bug
-            setTimeout(() => target.classList.remove('remove'), 600)
-        } else {
-            setCard(prev => {
-                if (prev) {
-                    prev.classList.remove('active')
-                    setTimeout(() => prev.classList.toggle('remove'), 1)
-                    setTimeout(() => prev.classList.remove('remove'), 600)
-                }
-                target.classList.toggle('active')
-                return target
-            })
-        }
+        // append the selected card to queue
+        cardQueue.current.push(e.currentTarget)
+        // use FIFO queue to access prev card, default to null if queue is less than 2
+        let initial = cardQueue.current.length > 1 ? cardQueue.current.shift() : null
+        // use a reduce function to easily manage cards, returning only the current card at the end of logic
+        // the reduce fn updates the value of the cardQueue
+        cardQueue.current = cardQueue.current.reduce((prev, cur) => {
+            // always make the current card the active card
+            cur.classList.add('active')
+            // remove active class if new card selected or if user clicked same card to dismiss
+            if (prev !== null || prev === cur) {
+                // remove active, give time to animate removal
+                prev.classList.remove('active')
+                // two timeout calls fixes the bug where 'remove' class is not removed after 500ms
+                setTimeout(() => prev.classList.add('remove'), 1) && setTimeout(() => prev.classList.remove('remove'), 500)
+
+            } 
+            // the current card will be used as the initial state of the next fn call
+            return prev === cur ? [] : [cur]
+
+        }, initial)
+
     }
     function handleAddtoCart(product, e) {
         e.stopPropagation()
@@ -77,28 +100,30 @@ const ProductItems = ({data, router, handlePage}) => {
         // console.log('add to favs', product)
     }
     const updateData = async () => {
-        await handlePage().then(v => setItems(v))
+        await handlePage().then(v => dispatch({
+            type: 'set_items',
+            newItems: v ?? data
+        }))
     }
+    const onUpdateMount = () => dispatch({type: 'toggle_mounted'})
+
+    useEffect(() => console.log('render', state))
     useEffect(() => {
-        updateData()
+        if (router.isReady) {
+            // state is populated w data first render, prevent double state push
+            // !state.items ? null : updateData()
+        }
     }, [router])
 
-    useEffect(() => {
-        if (data) {
-            setItems(data)
-            setLoading(false)
-
-        }
-    }, [data])
     return (
         <div className={styles['products-container']}>
-            {!loading && items.data.map((product, index) =>
+            {state.items && state.items.data.map((product, index) =>
                 <React.Fragment key={`productid-${product.name}`}>
                     <StyledCard className={styles.card} onClick={handleCard}>
                         <div className={`${styles.front} ${styles.face}`} >
                             <div className={`${styles['product-container']} ${styles.front} ${styles.face}`} >
                                 <div className={styles['img-container']}>
-                                    <Image src={myImage} alt="img" />
+                                    <Image src={ myImage} alt="img" />
                                 </div>
                                 <div className={styles['product-name']}>
                                     <h3 id="description">{`${product.name.replaceAll('_', ' ')}`}</h3>
@@ -124,12 +149,7 @@ const ProductItems = ({data, router, handlePage}) => {
 
                 </React.Fragment>
             )}
-            {mount &&
-                ReactDOM.createPortal(
-                    <ProductDetails setMount={setMount} product={curProduct} setCurProduct={setCurProduct} />,
-                    mount
-                )
-            }
+            {state.mounted && <ProductDetails product={cardData} toggleMount={onUpdateMount}/>}
         </div>
     )
 }

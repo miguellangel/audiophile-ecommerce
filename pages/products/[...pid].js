@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { useRouter } from "next/router"
-import { useRef } from "react"
-import Main, { Sidebar } from '../../components/Product.js'
+import { useEffect, useRef } from "react"
+import Main from '../../components/Product.js'
+import Sidebar from '../../components/Sidebar'
 import styles from '/styles/products.module.scss'
 
 import getData from '/firebase/getStaticData.js'
@@ -11,15 +12,6 @@ import getData from '/firebase/getStaticData.js'
 const DynamicRouter = ({ filters, response }) => {
     const router = useRouter()
     const query = router.query
-    // const [ data, setData ] = useState(response)
-
-
-	// useEffect(() => {
-	//     if (router.isReady) {
- //            if (data) setData(response) //update only on update
-	//     }
-	// }, [router])
-
     const productsContainer = useRef(null)
     const filtersApplied = useRef(null)
 
