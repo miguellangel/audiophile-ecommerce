@@ -5,6 +5,7 @@ import Image from 'next/image'
 import myImage from "/public/images/product-xx59-headphones/desktop/image-product.jpg"
 import heart from '/public/images/icons/heart.png'
 import ProductDetails from './ProductDetails'
+import { useRouter } from 'next/router'
 
 
 const StyledCard = styled.div`
@@ -40,6 +41,9 @@ const updateState = (state, action) => {
         case 'set_items': {
             return {...state, items: action.newItems}
         }
+        case 'add_items': {
+            return {...state, items: {...state.items, data: [...state.items.data, ...action.newItems]} }
+        }
         case 'toggle_mounted': {
             return {...state, mounted: !state.mounted}
         }
@@ -47,16 +51,18 @@ const updateState = (state, action) => {
     }
 }
 
-const ProductItems = ({data, router, handlePage}) => {
+const ProductItems = ({ data }) => {
     const initialState = {
         loading: true,
         items: data,
         mounted: false
     }
     const [state, dispatch] = useReducer(updateState, initialState)
-
+    const renderCount = useRef(1)
     const cardQueue = useRef([])
     const cardData = useRef()
+
+    const router = useRouter()
 
     function handlePopup(product, e) {
         e.stopPropagation()
@@ -99,26 +105,63 @@ const ProductItems = ({data, router, handlePage}) => {
         e.stopPropagation()
         // console.log('add to favs', product)
     }
+    const getData = async () => {
+        const firstSeen = state.items.data[0]
+        const lastSeen = state.items.data[state.items.data.length - 1]
+        // get the page mode. Options: first | prev | next | last ?? default
+        const page = router.query.page ?? "default"
+        const diff = router.query.difference
+        const type = router.query.pid[0]
+        const limit = router.query
+        // the sort mode defaults to name-asc
+        let [sortBy, direction] = (router.query.sort ?? "name-asc").split('-')
+        let startVal
+
+        if (diff >= 0) {
+            // since we are using item as startVal query parameter, the query must b
+            // of the same type as the current item e.g. query=name-asc state.items.data[<name>, manufacturer, price]
+            startVal = ((page === "next") || (page !== "first" || page != "last")) ? lastSeen[sortBy] : page === "previous" ? firstSeen[sortBy] : null 
+            sortBy = page === "default" ? `${sortBy}-asc` : `${sortBy}-desc`
+            let query = `/api/collections/${type}/${(diff || router.query.limit) ?? 9}/${sortBy}/${startVal}`
+            // {data: [...], meta: {...}}
+            let data = await fetch(query).then(v => v.json()).catch(() => null)
+            data = {...data, meta: {...data.meta, 'type': 'add'}}
+            console.log(data)
+            return data
+
+
+        } else {
+            //console.log(`Should remove ${-diff} items`)
+            //console.log('New data: ', state.items.data.splice(state.items.data.length + diff, -diff))
+            // user wants less items per page; delete excess items from data array
+            return state.items.data.splice(state.items.data.length + diff, state.items.data.length)
+        }
+
+
+
+    }
     const updateData = async () => {
-        await handlePage().then(v => dispatch({
-            type: 'set_items',
-            newItems: v ?? data
+        
+        await getData().then(v => dispatch({
+            type: 'add_items',
+            newItems: v.data ?? data.data
         }))
     }
     const onUpdateMount = () => dispatch({type: 'toggle_mounted'})
-
-    useEffect(() => console.log('render', state))
+    /*  update case: on page load */
+    /* update case: on query update */
+    // prevent rerender after router change
     useEffect(() => {
         if (router.isReady) {
-            // state is populated w data first render, prevent double state push
-            // !state.items ? null : updateData()
+            if (renderCount.current > 1) updateData()
+            renderCount.current += 1
         }
     }, [router])
 
     return (
         <div className={styles['products-container']}>
             {state.items && state.items.data.map((product, index) =>
-                <React.Fragment key={`productid-${product.name}`}>
+                <React.Fragment key={`productid-${product.name}-${index}`}>
                     <StyledCard className={styles.card} onClick={handleCard}>
                         <div className={`${styles.front} ${styles.face}`} >
                             <div className={`${styles['product-container']} ${styles.front} ${styles.face}`} >
