@@ -1,6 +1,11 @@
 import styles from '/styles/products.module.scss'
-
-const ProductHeader = ({children, type}) => {
+import { useRouter } from 'next/router'
+import { memo } from 'react'
+const areEqual = () => true 
+const ProductHeader = ({ children }) => {
+    const router = useRouter()
+    const [type] = router.query.pid
+    
     return (
         <div className={styles.header}>
             <span>
@@ -11,4 +16,4 @@ const ProductHeader = ({children, type}) => {
         </div>
     )
 }
-export default ProductHeader
+export default memo(ProductHeader, areEqual)

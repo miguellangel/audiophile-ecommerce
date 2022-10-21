@@ -4,10 +4,10 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 /* String.replaceAll() polyfill */
 if (typeof String.prototype.replaceAll === "undefined") {
-	String.prototype.replaceAll = function (match, replace) {
-	  return this.replace(new RegExp(match, 'g'), () => replace);
-	}
-  }
+    String.prototype.replaceAll = function(match, replace) {
+        return this.replace(new RegExp(match, 'g'), () => replace);
+    }
+}
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,27 +18,27 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const theme = {
-	colors: {
-		primary: '#191919', 
-		secondary: '#d87c49',
-		textPrimary: 'white',
-	},
+    colors: {
+        primary: '#191919',
+        secondary: '#d87c49',
+        textPrimary: 'white',
+    },
 }
 
 const MyApp = ({ Component, pageProps }) => {
 
-	return (
-		<>
-			<GlobalStyle />
-			<ThemeProvider theme= { theme }>
-				<Layout>
-					
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
-		</>
+    return (
+        <>
+            <GlobalStyle />
+            <ThemeProvider theme={theme}>
+                <Layout>
 
-	)
+                    <Component {...pageProps} />
+                </Layout>
+            </ThemeProvider>
+        </>
+
+    )
 }
 
 
@@ -48,10 +48,10 @@ perform automatic static optimization, causing every page in your app to
 be server-side rendered. */
 
 /* MyApp.getInitialProps = async (appContext) => {
-	// calls page's `getInitialProps` and fills `appProps.pageProps`
-	const appProps = await App.getInitialProps(appContext);
+    // calls page's `getInitialProps` and fills `appProps.pageProps`
+    const appProps = await App.getInitialProps(appContext);
 
-	return { ...appProps }
+    return { ...appProps }
 } */
 
 export default MyApp

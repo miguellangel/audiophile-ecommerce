@@ -1,34 +1,22 @@
 import Head from 'next/head'
 import { useRouter } from "next/router"
-import { useRef } from "react"
-import Main, { Sidebar } from '../../components/Product.js'
+import { useEffect, useRef, useCallback } from "react"
+import Main from '../../components/Product.js'
+import Sidebar from '../../components/Sidebar'
 import styles from '/styles/products.module.scss'
 
 import getData from '/firebase/getStaticData.js'
 
 
 
-const DynamicRouter = ({ filters, response }) => {
-    const router = useRouter()
-    const query = router.query
-    // const [ data, setData ] = useState(response)
-
-
-	// useEffect(() => {
-	//     if (router.isReady) {
- //            if (data) setData(response) //update only on update
-	//     }
-	// }, [router])
-
-    const productsContainer = useRef(null)
+const DynamicRouter = ({ filters, type, response }) => {
     const filtersApplied = useRef(null)
-
-    const sendRef = async () => filtersApplied
+    const sendRef = useCallback(async () => filtersApplied, [])
 
     return (
         <>
             <Head>
-                <title>{query.pid[0]}</title>
+                <title>{type}</title>
                 <meta name="description" content="A mock audiophile e-commerce site!" />
                 <link rel="icon" href="/favicon.ico" />
 
@@ -40,9 +28,9 @@ const DynamicRouter = ({ filters, response }) => {
                 {/* iOS Safari */}
                 <meta name="apple-mobile-web-app-status-bar-style" content="#161616" />
             </Head>
-            <div ref={productsContainer} className={styles.container}>
+            <div className={styles.container}>
                 <Sidebar receiveRef={sendRef} filters={filters} />
-                {router.isReady ? <Main filterRef = {div => filtersApplied.current = div} data={response} router={router} /> : <div>loading</div>}
+                <Main filterRef = {div => filtersApplied.current = div} data={response} />
             </div>
 
         </>
@@ -80,6 +68,7 @@ export const getStaticProps = async ({ params }) => {
     return {
         props: {
             filters,
+            type: params.pid[0],
             response: JSON.parse(JSON.stringify(response))
         }
     }
