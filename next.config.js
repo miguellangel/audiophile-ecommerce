@@ -26,6 +26,17 @@ module.exports = phase => {
         //     path: "",
         // },
 	// edit webpack to include dotenv
+    
+    images: {
+        domains: [ 'tse1.mm.bing.net'],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "**",
+            },
+        ],
+    },
+
 	webpack(config) {
             config.plugins.push(new webpack.EnvironmentPlugin(isDev ? myEnv : {})) // only use dotenv on dev phase, use Next env vars on prod.
             return config

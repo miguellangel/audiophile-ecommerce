@@ -5,6 +5,7 @@ import Image from 'next/image'
 import myImage from "/public/images/product-xx59-headphones/desktop/image-product.jpg"
 import heart from '/public/images/icons/heart.png'
 import ProductDetails from './ProductDetails'
+import ProductImage from './ProductImage'
 import { useRouter } from 'next/router'
 
 
@@ -13,6 +14,7 @@ const StyledCard = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: column nowrap;
+    align-self: stretch;
 	flex: 0 0 32%;
 	margin: 1% 0;
 	position: relative;
@@ -61,6 +63,7 @@ const ProductItems = ({ data }) => {
     const renderCount = useRef(1)
     const cardQueue = useRef([])
     const cardData = useRef()
+    const lastSortBy = useRef('name-asc')
 
     const router = useRouter()
 
@@ -105,52 +108,81 @@ const ProductItems = ({ data }) => {
         e.stopPropagation()
         // console.log('add to favs', product)
     }
-    const getData = async () => {
+    const rgetData = async () => {
+
         const firstSeen = state.items.data[0]
         const lastSeen = state.items.data[state.items.data.length - 1]
         // get the page mode. Options: first | prev | next | last ?? default
         const page = router.query.page ?? "default"
         const diff = router.query.difference
         const type = router.query.pid[0]
-        const limit = router.query
+        let limit = router.query.limit ?? 9
         // the sort mode defaults to name-asc
         let [sortBy, direction] = (router.query.sort ?? "name-asc").split('-')
-        let startVal
+        lastSortBy.current = sortBy
+        let shouldReverse = false, shouldOverwrite = false
+        let startVal, query, data
 
-        if (diff >= 0) {
-            // since we are using item as startVal query parameter, the query must b
-            // of the same type as the current item e.g. query=name-asc state.items.data[<name>, manufacturer, price]
-            startVal = ((page === "next") || (page !== "first" || page != "last")) ? lastSeen[sortBy] : page === "previous" ? firstSeen[sortBy] : null 
-            sortBy = page === "default" ? `${sortBy}-asc` : `${sortBy}-desc`
-            let query = `/api/collections/${type}/${(diff || router.query.limit) ?? 9}/${sortBy}/${startVal}`
-            // {data: [...], meta: {...}}
-            let data = await fetch(query).then(v => v.json()).catch(() => null)
-            data = {...data, meta: {...data.meta, 'type': 'add'}}
-            console.log(data)
-            return data
+        let getQuery = (limit=9, sortBy='name', direction='asc', startVal=null) => 
+            `/api/collections/${type}/${limit}/${sortBy}/${direction}/${startVal}`
 
-
+        breakif: if (diff >= 0) {
+            // limit was changed
+            startVal = lastSeen[sortBy]
+            limit = diff
         } else {
+            // either page or sort method changed
+            // flip the sort method direction when page = previous || page == last
+            shouldOverwrite = true
+            if (page === 'previous' || page === 'last') {
+                startVal = page === 'previous' ? firstSeen[sortBy] : null
+                direction = direction === "asc" ? 'desc' : 'asc'
+                shouldReverse = true
+                break breakif
+            } else if (page === "next" || page === 'first') {
+                startVal = page === 'next' ? lastSeen[sortBy] : null
+                break breakif
+            } else {
+                break breakif
+            }
             //console.log(`Should remove ${-diff} items`)
             //console.log('New data: ', state.items.data.splice(state.items.data.length + diff, -diff))
             // user wants less items per page; delete excess items from data array
             return state.items.data.splice(state.items.data.length + diff, state.items.data.length)
         }
-
-
-
-    }
-    const updateData = async () => {
+        // TODO: be more specific in the search for startVal for price-mode as it is a number
+        // must include either manufacturer or name
+        query = getQuery(limit, sortBy, direction, startVal)
         
-        await getData().then(v => dispatch({
-            type: 'add_items',
-            newItems: v.data ?? data.data
-        }))
+        data = await fetch(query).then(v => v.json()).catch(e => console.log('error getting data: ', e))
+        return {
+            ...data, 
+            data: shouldReverse ? [...data.data?.reverse()] : [...data.data],
+            meta: {...data.meta, overwrite: shouldOverwrite}
+        }
+    }
+
+    const updateData = async () => {
+        await rgetData().then(v => {
+            if (v.meta.overwrite) {
+                dispatch({
+                    type: 'set_items',
+                    newItems: v ?? data
+                })
+            } else {
+                dispatch({
+                    type: 'add_items',
+                    newItems: v.data ?? data.data
+                })
+            }
+        })
     }
     const onUpdateMount = () => dispatch({type: 'toggle_mounted'})
     /*  update case: on page load */
     /* update case: on query update */
     // prevent rerender after router change
+
+
     useEffect(() => {
         if (router.isReady) {
             if (renderCount.current > 1) updateData()
@@ -166,7 +198,7 @@ const ProductItems = ({ data }) => {
                         <div className={`${styles.front} ${styles.face}`} >
                             <div className={`${styles['product-container']} ${styles.front} ${styles.face}`} >
                                 <div className={styles['img-container']}>
-                                    <Image src={ myImage} alt="img" />
+                                    <ProductImage index={index} name={product.name} manufacturer={product.manufacturer}/>
                                 </div>
                                 <div className={styles['product-name']}>
                                     <h3 id="description">{`${product.name.replaceAll('_', ' ')}`}</h3>
