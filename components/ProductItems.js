@@ -197,9 +197,7 @@ const ProductItems = ({ data }) => {
                     <StyledCard className={styles.card} onClick={handleCard}>
                         <div className={`${styles.front} ${styles.face}`} >
                             <div className={`${styles['product-container']} ${styles.front} ${styles.face}`} >
-                                <div className={styles['img-container']}>
-                                    <ProductImage index={index} name={product.name} manufacturer={product.manufacturer}/>
-                                </div>
+                                <ProductImage index={index} name={product.name} manufacturer={product.manufacturer}/>
                                 <div className={styles['product-name']}>
                                     <h3 id="description">{`${product.name.replaceAll('_', ' ')}`}</h3>
                                     <p>{`${product.manufacturer.replaceAll('_', ' ')}`}</p>
