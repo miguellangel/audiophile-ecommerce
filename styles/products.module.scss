@@ -113,6 +113,7 @@
         display: flex;
         flex-flow: column wrap;
         position: relative;
+        gap: 3vmin;
 
         .header {
             display: flex;
@@ -294,11 +295,13 @@
                     .product-container {
                         display: flex;
                         flex-flow: column nowrap;
-                        flex: 1 0 30%;
+                        flex: 1 1 0;
                         background: linear-gradient(0deg, white, var(--accent, #e9e9e9) 300%);
                         .img-container {
                             color: black;
                             height: 60%;
+                            background-image: var(--productImg, '');
+                            background-size: cover;
                         }
                         .product-name {
                             border-radius: 0.5em;
