@@ -4,7 +4,6 @@ import { query, collection, limit, getDoc, getDocs, doc, startAfter, orderBy } f
 export default async function handler(req, res) {
 	const { pid } = req.query
 	var [type, limit, order, direction, startVal] = pid
-    console.log('HEEKLJ', type)
 
 	// let lastVisible = JSON.parse(decodeURIComponent(lastVisibleSnapshot))
     var response = await resolveData(type, limit, order, direction, startVal)
@@ -43,7 +42,6 @@ const resolveData = (type, limitt, order, direction, startVal) => new Promise(as
 
 			} else {
 				var q
-                console.log([order, direction])
 				if (startVal !== "null") {
 					q = query(collection(db, `collections/${type.toLowerCase()}/${subType}`),
 						orderBy(order, direction), // returns max two strings e.g. price, desc

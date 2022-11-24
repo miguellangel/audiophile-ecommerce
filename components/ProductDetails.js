@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import styles from './../styles/products.module.scss'
 import images from '../prerender/image_api.json'
 import {StyledPopup, theme, ShakingButton} from './StyledProductComponents'
+import DetailPropsView from './DetailPropsView'
 
 const modulo = (n, d) => ((n % d) + d) % d
 
@@ -109,6 +110,7 @@ const ProductDetails = ({ product, toggleMount }) => {
         escEvent.current = document.addEventListener('keydown', e => {
             if (e.isComposing || e.keyCode === 27) handleUnmount()
         })
+
         // remove the esc key listener if the button was pressed instead
         return () => document.removeEventListener('keydown', escEvent.current)
     })
@@ -120,22 +122,19 @@ const ProductDetails = ({ product, toggleMount }) => {
                     <div className={`closePopupContainer`}><button onClick={handleUnmount}>x</button></div>
                     <div className="gallery">
                         <ImageSlider />
-                        <div className="productOptions">
-                            <div className="header">
-                                <h1>{product.current.name.replaceAll('_', ' ')}</h1>
-                                <h2>{product.current.manufacturer.replaceAll('_', ' ')}</h2>
+                        <div className="infoWrapper">
+                            <div className="headerContainer">
+                                <div className="header">
+                                    <div className="headerItems">
+                                        <h1>{product.current.name.replaceAll('_', ' ')}</h1>
+                                        <h2>--{product.current.manufacturer.replaceAll('_', ' ')}</h2>
+                                        <div className="productRating">☆☆☆☆☆</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>☆☆☆☆☆</div>
+                            
+                            <DetailPropsView product={product}/>
                         </div>
-                        <div className="specs">
-                            <ShakingButton onClick={e => e.target.classList.toggle('active')}>+ details</ShakingButton>
-                            <span className="vertical">
-                                <span className="horizontal"></span>
-                                <span className="horizontal"></span>
-                                <span className="horizontal"></span>
-                            </span>
-                        </div>
-
                     </div>
                     
                 </StyledPopup>
