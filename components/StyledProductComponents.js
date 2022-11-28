@@ -63,11 +63,14 @@ const StyledPopup = styled.div`
 
     .closePopupContainer {
         position: absolute;
-        width: 3%;
-        height: 3%;
+        width: clamp(0px, 15vmin, 56px);
         translate:0 0;
-        top: 80px;
+        top: clamp(0px, 80px, 5%);
         z-index: 3;
+        background: rgba(255,255,255,0.5);
+        border-radius: 3em;
+        padding: 10px;
+        backdrop-filter: blur(10px);
 
         button {
             width: 100%;
@@ -151,7 +154,7 @@ const StyledPopup = styled.div`
             width: max-content;
             position: absolute;
             bottom: 0;
-            left: 35%;
+            left: 25%;
             padding: 1.5em 3em;
             box-shadow: 0 -10px 3em -30px rgba(0,0,0,0.4);
             z-index: 1;
@@ -225,6 +228,8 @@ const StyledPopup = styled.div`
                 
                 .header {
                     height: max-content;
+                    position: relative;
+                    top: 15%;
                     
                     .headerItems { 
                         display: flex;
@@ -259,7 +264,7 @@ const StyledPopup = styled.div`
                     border-radius: 1em;
 
                     button {
-                        width: clamp(120px, 12vmin, 12vmax);
+                        width: clamp(0px, 22vmin, 100px);
 
                     }
                     &.active {
@@ -283,6 +288,28 @@ const StyledPopup = styled.div`
                     box-shadow: 0 -10px 2em -30px;
                     z-index: -1;
                     transform: translateY(100%);
+
+                    h1 {display: initial}
+
+                    .tableItems {
+                        display: flex;
+                        flex-flow: column wrap;
+                        gap: 1em;
+
+                        .tableField {
+                            display: flex;
+                            flex-flow: row wrap;
+                            border-bottom: 1px solid #c9c9c9;
+                            justify-content: space-between;
+
+                                
+                            .fieldKey {
+                                text-transform: uppercase;
+                            }
+                            .fieldValue {}
+
+                        }
+                    }
                 } 
                 
             }

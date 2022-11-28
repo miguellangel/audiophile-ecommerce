@@ -1,9 +1,38 @@
-import {useRef, useState, useEffect} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {ShakingButton} from './StyledProductComponents'
-import * as d3 from 'd3'
-import {dim} from 'colorette'
+//import * as d3 from 'd3'
 
 const modulo = (n, d) => ((n % d) + d) % d
+const prettyKey = [
+    'Model',
+    'Efficiency (dB SPL/mW)',
+
+]
+const TableDetails = ({data}) => {
+    const [product, setProduct] = useState()
+
+    const getProduct = async (name) => {
+        fetch(`/api/product/${name}`)
+            .then(v => v.json())
+            .then(d => setProduct(d))
+    }
+
+    useEffect(() => {
+        if (!product) getProduct(data.current.name);
+        if (product) console.log(Object.keys(product.data.attributes).map(i => console.log("hello", i)))
+    })
+
+    return (
+        <div className="tableItems">
+            {product && Object.keys(product.data.attributes).map((i,idx) => (
+                <div className="tableField" key={idx}>
+                    <div className="fieldKey">{i}</div>
+                    <div className="fieldValue">{product.data.attributes[i]}</div>
+                </div>
+            ))}
+        </div>
+    )
+}
 
 const DetailPropsView = ({product}) => {
     const [dimensions, setDimensions] = useState()
@@ -30,7 +59,9 @@ const DetailPropsView = ({product}) => {
 
  
 
-    
+    useEffect(() => {
+        console.log("RENDERS TWICE?")
+    }) 
     useEffect(() => {
         if (!dimensions) setTimeout(() => {
             setDimensions(getDimensions())
@@ -47,7 +78,7 @@ const DetailPropsView = ({product}) => {
                 </div>
                 <div className='specsContainer'>
                     <h1>Product Specifications</h1>
-                    <div></div>
+                    <TableDetails data={product} />
                 </div>
             </div>
         </>

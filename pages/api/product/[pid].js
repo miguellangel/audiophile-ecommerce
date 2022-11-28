@@ -1,5 +1,5 @@
 import { db } from '/firebase/config'
-import { query, collection, limit, getDoc, getDocs, doc, startAfter, orderBy } from "firebase/firestore"
+import { getDoc, doc } from "firebase/firestore"
 
 export default async function handler(req, res) {
     const {pid} = req.query 
