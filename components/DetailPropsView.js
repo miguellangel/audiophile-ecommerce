@@ -14,20 +14,26 @@ const TableDetails = ({data}) => {
     const getProduct = async (name) => {
         fetch(`/api/product/${name}`)
             .then(v => v.json())
-            .then(d => setProduct(d))
+            .then(d => {
+                let data = d.data.attributes
+                let temp;
+                let filteredKeys = Object.keys(data).filter((i, idx) => data[i] !== "unspecified")
+                let filteredArr = filteredKeys.map(function(i, idx) {return {[i]: data[i]}})
+                console.log(filteredArr)
+                setProduct(filteredArr)
+            })
     }
 
     useEffect(() => {
         if (!product) getProduct(data.current.name);
-        if (product) console.log(Object.keys(product.data.attributes).map(i => console.log("hello", i)))
     })
 
     return (
         <div className="tableItems">
-            {product && Object.keys(product.data.attributes).map((i,idx) => (
+            {product && product.map((i,idx) => (
                 <div className="tableField" key={idx}>
-                    <div className="fieldKey">{i}</div>
-                    <div className="fieldValue">{product.data.attributes[i]}</div>
+                    <div className="fieldKey">{Object.keys(i)[0]}</div>
+                    <div className="fieldValue">{Object.values(i)[0]}</div>
                 </div>
             ))}
         </div>

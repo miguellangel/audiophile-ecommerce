@@ -119,7 +119,7 @@ const ProductDetails = ({ product, toggleMount }) => {
         return (
             <Portal>
                 <StyledPopup theme={anim} className={`${styles.productDetailsWrapper} ${styles['swing-in-top-fwd']}`} ref={wrapper} >
-                    <div className={`closePopupContainer`}><button onClick={handleUnmount}>x</button></div>
+                    <div className={`closePopupContainer`}><button onClick={handleUnmount}>✖️</button></div>
                     <div className="gallery">
                         <ImageSlider />
                         <div className="infoWrapper">

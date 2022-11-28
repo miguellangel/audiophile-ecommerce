@@ -262,17 +262,20 @@ const StyledPopup = styled.div`
                     width: max-content;
                     padding: 1em;
                     border-radius: 1em;
+                    transition: 300ms;
 
                     button {
                         width: clamp(0px, 22vmin, 100px);
 
                     }
                     &.active {
+                        transform: translate(140%);
+
                         &+.specsContainer {
                             background: white;
                             backdrop-filter: blur(10px);
                             transform-origin: top right;
-                            transform: scale(1);
+                            transform: scale(1)translate(0,-23%);
                         }  
                     }
 
@@ -293,18 +296,21 @@ const StyledPopup = styled.div`
 
                     .tableItems {
                         display: flex;
-                        flex-flow: column wrap;
+                        flex-flow: row wrap;
                         gap: 1em;
 
                         .tableField {
                             display: flex;
                             flex-flow: row wrap;
+                            flex: calc(50% - 3em);
                             border-bottom: 1px solid #c9c9c9;
                             justify-content: space-between;
+                            padding: 0 1em;
 
                                 
                             .fieldKey {
-                                text-transform: uppercase;
+                                text-transform: capitalize;
+                                font-weight: 600;
                             }
                             .fieldValue {}
 
