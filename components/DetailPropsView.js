@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {ShakingButton} from './StyledProductComponents'
 //import * as d3 from 'd3'
+import styles from './../styles/products.module.scss'
 
 const modulo = (n, d) => ((n % d) + d) % d
 const prettyKey = [
@@ -41,7 +42,6 @@ const TableDetails = ({data}) => {
 }
 
 const DetailPropsView = ({product}) => {
-    const [dimensions, setDimensions] = useState()
     const productSpecs = useRef()
     const groupRef = useRef()
 
@@ -68,17 +68,10 @@ const DetailPropsView = ({product}) => {
     useEffect(() => {
         console.log("RENDERS TWICE?")
     }) 
-    useEffect(() => {
-        if (!dimensions) setTimeout(() => {
-            setDimensions(getDimensions())
-        }, 750) // wait for the end of css transition
-        if (dimensions && !productSpecs.current) { 
-            //renderd3Group()
-        }
-    }, [dimensions])
+
     return (
         <>
-            <div className="specs">
+            <div className={`${styles.specs} specs`}>
                 <div className='closeSpecsContainer'>
                     <ShakingButton onClick={e => e.target.parentNode.classList.toggle('active')}>+ details</ShakingButton>
                 </div>

@@ -58,7 +58,7 @@ const StyledPopup = styled.div`
     z-index: 5;
     justify-content: center;
     align-items: center;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     ${AnimMixin} .5s cubic-bezier(.175, .885, .32, 1.275) normal both;
 
     .closePopupContainer {
@@ -87,102 +87,107 @@ const StyledPopup = styled.div`
             }
         }
     }
-
-    .gallery {
-        width: 100%;
-        height: 100%;
+    .images {
+        width: 100vw;
+        height: 100vh;
         display: flex;
-        position: relative;
-        
-        .images {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            z-index: -1;
+        z-index: -1;
+        position: absolute;
+
+        .imgLoader {
+            width: 100%;
+            height: 100%;
             position: absolute;
+            display: none; /* wait for user action to load images */;
+            z-index: -1;
+            background-image: var(--bgURL, '');
+            background-color: white;
+            background-size: cover;
+            transform-origin: left;
+            transition: 750ms cubic-bezier(0.5, 0, 0.75, 0);
 
-            .imgLoader {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                display: none; /* wait for user action to load images */;
-                z-index: -1;
-                background-image: var(--bgURL, '');
-                background-color: white;
-                background-size: cover;
-                transform-origin: left;
-                transition: 750ms cubic-bezier(0.5, 0, 0.75, 0);
+            &.unflip { transform: rotateY(90deg) }
+            &.flip { transform: rotateY(-90deg) } 
+            &.active {
+                display: unset;
+                z-index: 3;
+                order: 2;
+        
 
-                &.unflip { transform: rotateY(90deg) }
-                &.flip { transform: rotateY(-90deg) } 
-                &.active {
+                &+* {
                     display: unset;
-                    z-index: 3;
-                    order: 2;
-            
+                    z-index: 2;
+                    order: 3;
 
                     &+* {
                         display: unset;
-                        z-index: 2;
-                        order: 3;
-
-                        &+* {
-                            display: unset;
-                            z-index: 1;
-                            order: 1;
-                        }
+                        z-index: 1;
+                        order: 1;
                     }
-                    &.flip {
-                        z-index: 6;
-                        transform: rotateY(-90deg);
+                }
+                &.flip {
+                    z-index: 6;
+                    transform: rotateY(-90deg);
 
+                    &+* {
+                        
+                        z-index: 5;
                         &+* {
-                            
-                            z-index: 5;
-                            &+* {
-                                z-index: 4;
-                            }
+                            z-index: 4;
                         }
                     }
                 }
             }
         }
+    }
 
-        .page {
-            
+    .page {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        .pageContainer {
             background: white;
             width: max-content;
-            position: absolute;
+            height: clamp(115px, 15%, 30%);
+            position: relative;
             bottom: 0;
-            left: 25%;
             padding: 1.5em 3em;
             box-shadow: 0 -10px 3em -30px rgba(0,0,0,0.4);
             z-index: 1;
-            
-           
-            button {
-                
-                background: transparent;
-                border: 1px solid white;
-                font-weight: 700;
-                border-radius: 3em;
-                padding: 1em;
-                cursor: pointer;
-                font-size: 22px;
-                transition: 250ms;
-                aspect-ratio: unset;
-                
-                &:hover {
-                    scale: 1.5;
-                }
-                &.disabled {
-                    color: grey;
-                    cursor: not-allowed;
-                    user-select: none;
-                }
-            }
-            
         }
+        
+       
+        button {
+            
+            background: transparent;
+            border: 1px solid white;
+            font-weight: 700;
+            border-radius: 3em;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 22px;
+            transition: 250ms;
+            aspect-ratio: unset;
+            
+            &:hover {
+                scale: 1.5;
+            }
+            &.disabled {
+                color: grey;
+                cursor: not-allowed;
+                user-select: none;
+            }
+        }
+        
+    }
+    .gallery {
+        width: 100%;
+        height: clamp(0px,calc(100% - clamp(115px, 15%, 30%)),85%);
+        display: flex;
+        position: relative;
+        
+
     
         .infoWrapper {
             @media (orientation: portrait) {
@@ -191,7 +196,7 @@ const StyledPopup = styled.div`
                 flex-flow: column;
 
                 .headerContainer {
-                    padding-top: 10em;
+                    transform: translateY(70%);
 
                     .header {
                         padding: 2vmin;
@@ -202,15 +207,16 @@ const StyledPopup = styled.div`
 
                 }
                 .specs {
+                    --p: 0;
+
                     flex-flow: column nowrap;
                     align-items: start;
                     justify-content: center;
                     padding: 2vmin;
+                    transform: translateY(5%);
 
-                    button {
-                        
-                        width: 12+var(--unit);
-                        aspect-ratio: 2/1;
+                    .closeSpecsContainer {
+                        align-self: center !important;
                     }
                 }
             }
@@ -218,13 +224,15 @@ const StyledPopup = styled.div`
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             flex-flow: row wrap;
             width: 100%;
-            height: inherit;
+            height: 100%;
+            
 
             .headerContainer {
                 display: flex;
                 flex-flow: column nowrap;
                 align-items: center;
-                flex: 1 1 0;
+                flex: 1 1 0%;
+                height: 100%;
                 
                 .header {
                     height: max-content;
@@ -248,9 +256,10 @@ const StyledPopup = styled.div`
             }
             .specs {
                 position: relative;
+                height: 100%;
                 display: flex;
                 flex-flow: column nowrap;
-                padding: clamp(1vh, 15em, 20vh) clamp(1vw, 15em, 20vw) 0 0;
+                padding: calc(clamp(0px,25vmin,180px) + 0px) clamp(0px,30vmin, 240px * var(--p, 1)) 0 0;
                 justify-content: start;
                 flex: 1 1 50%;
                 gap: 2vh;
@@ -265,17 +274,22 @@ const StyledPopup = styled.div`
                     transition: 300ms;
 
                     button {
-                        width: clamp(0px, 22vmin, 100px);
+                        width: clamp(85px, 22vmin, 100px);
 
                     }
                     &.active {
-                        transform: translate(140%);
+                        button {
+                            text-shadow: 0px -1px black;
+                            border-color: white;
+                            box-shadow: 0 0 1em 1em rgba(255,255,255,0.3), 2px 0 1px 1px rgba(0,0,0,0.5);
+                        }
 
                         &+.specsContainer {
+                            height: 100%;
                             background: white;
                             backdrop-filter: blur(10px);
                             transform-origin: top right;
-                            transform: scale(1)translate(0,-23%);
+                            transform: scale(1);
                         }  
                     }
 
@@ -290,14 +304,16 @@ const StyledPopup = styled.div`
                     padding: 3em;
                     box-shadow: 0 -10px 2em -30px;
                     z-index: -1;
-                    transform: translateY(100%);
-
+                    transform: translateY(150%);
+                    overflow: scroll;
                     h1 {display: initial}
 
                     .tableItems {
                         display: flex;
                         flex-flow: row wrap;
                         gap: 1em;
+                        overflow: scroll;
+                        max-height: 70%;
 
                         .tableField {
                             display: flex;
