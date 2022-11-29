@@ -63,7 +63,12 @@ const DetailPropsView = ({product}) => {
         }
     }
 
- 
+    const handleShakyButton = e => {
+        e.target.parentNode.classList.toggle('active')
+        let el = document.querySelector('div.page')
+        
+        el.hasAttribute('style') ? el.removeAttribute('style') : el.setAttribute('style', '--zI: -1')
+    }
 
     useEffect(() => {
         console.log("RENDERS TWICE?")
@@ -73,7 +78,7 @@ const DetailPropsView = ({product}) => {
         <>
             <div className={`${styles.specs} specs`}>
                 <div className='closeSpecsContainer'>
-                    <ShakingButton onClick={e => e.target.parentNode.classList.toggle('active')}>+ details</ShakingButton>
+                    <ShakingButton onClick={handleShakyButton}>+ details</ShakingButton>
                 </div>
                 <div className='specsContainer'>
                     <h1>Product Specifications</h1>
