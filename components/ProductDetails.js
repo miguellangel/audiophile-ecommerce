@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import styles from './../styles/products.module.scss'
 import images from '../prerender/image_api.json'
 import {StyledPopup, theme, ShakingButton} from './StyledProductComponents'
+import DetailPropsView from './DetailPropsView'
 
 const modulo = (n, d) => ((n % d) + d) % d
 
@@ -26,7 +27,7 @@ const ImageBg = ({img, idx}) => {
         <div ref={divBgRef} id={'img-'+idx} className={`imgLoader${idx === 0 ? ' active' : ''}`}></div>
     )
 }
-const ImageSlider = () => {
+const ImageSlider = ({children}) => {
     const imgArr = useRef([...images.items])
     const imgIndx = useRef(0)
     const imagesDiv = useRef()
@@ -81,9 +82,13 @@ const ImageSlider = () => {
                     <ImageBg key={'image'+indx} img={img} idx={indx}/>
                 )}
             </div>
-            <div className="page">
-                <span><button value={false} className="disabled" onClick={handleSlideshow}>&lt;</button></span>
-                <span><button value={true} onClick={handleSlideshow}>&gt;</button></span>
+            {children}
+            <div className={`${styles.page} page`}>
+                <div className={`${styles.pageContainer} pageContainer`}>
+                    <span><button value={false} className="disabled" onClick={handleSlideshow}>&lt;</button></span>
+                    <span><button value={true} onClick={handleSlideshow}>&gt;</button></span>
+
+                </div>
             </div>    
         </>
     )
@@ -109,6 +114,7 @@ const ProductDetails = ({ product, toggleMount }) => {
         escEvent.current = document.addEventListener('keydown', e => {
             if (e.isComposing || e.keyCode === 27) handleUnmount()
         })
+
         // remove the esc key listener if the button was pressed instead
         return () => document.removeEventListener('keydown', escEvent.current)
     })
@@ -117,27 +123,24 @@ const ProductDetails = ({ product, toggleMount }) => {
         return (
             <Portal>
                 <StyledPopup theme={anim} className={`${styles.productDetailsWrapper} ${styles['swing-in-top-fwd']}`} ref={wrapper} >
-                    <div className={`closePopupContainer`}><button onClick={handleUnmount}>x</button></div>
-                    <div className="gallery">
-                        <ImageSlider />
-                        <div className="productOptions">
-                            <div className="header">
-                                <h1>{product.current.name.replaceAll('_', ' ')}</h1>
-                                <h2>{product.current.manufacturer.replaceAll('_', ' ')}</h2>
+                    <div className={`closePopupContainer`}><button onClick={handleUnmount}>✖️</button></div>
+                    <ImageSlider>
+                        <div className="gallery">
+                            <div className="infoWrapper">
+                                <div className="headerContainer">
+                                    <div className="header">
+                                        <div className="headerItems">
+                                            <h1>{product.current.name.replaceAll('_', ' ')}</h1>
+                                            <h2>--{product.current.manufacturer.replaceAll('_', ' ')}</h2>
+                                            <div className="productRating">☆☆☆☆☆</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <DetailPropsView product={product}/>
                             </div>
-                            <div>☆☆☆☆☆</div>
                         </div>
-                        <div className="specs">
-                            <ShakingButton onClick={e => e.target.classList.toggle('active')}>+ details</ShakingButton>
-                            <span className="vertical">
-                                <span className="horizontal"></span>
-                                <span className="horizontal"></span>
-                                <span className="horizontal"></span>
-                            </span>
-                        </div>
-
-                    </div>
-                    
+                    </ImageSlider>
                 </StyledPopup>
             </Portal>
         )

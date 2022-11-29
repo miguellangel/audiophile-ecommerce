@@ -391,5 +391,24 @@
 }
 
 .productDetailsWrapper {
-    --hello: 'k'
+    .specs {
+        @include mixins.fluid-layout([mobile-landscape]) {
+            z-index: 2 !important;
+            height: calc(100% + clamp(115px,15%,30%)) !important;
+
+            > div.specsContainer {
+                overflow: scroll;
+            }
+        }
+    }
+    .page {
+        --hello: 3;
+        @include mixins.fluid-layout([mobile-landscape]) {
+            justify-content: start !important;
+
+        }
+        .pageContainer {
+
+        }
+    }
 }

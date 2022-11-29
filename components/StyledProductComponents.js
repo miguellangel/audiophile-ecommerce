@@ -58,16 +58,19 @@ const StyledPopup = styled.div`
     z-index: 5;
     justify-content: center;
     align-items: center;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     ${AnimMixin} .5s cubic-bezier(.175, .885, .32, 1.275) normal both;
 
     .closePopupContainer {
         position: absolute;
-        width: 3%;
-        height: 3%;
+        width: clamp(0px, 15vmin, 56px);
         translate:0 0;
-        top: 80px;
+        top: clamp(0px, 80px, 5%);
         z-index: 3;
+        background: rgba(255,255,255,0.5);
+        border-radius: 3em;
+        padding: 10px;
+        backdrop-filter: blur(10px);
 
         button {
             width: 100%;
@@ -75,7 +78,8 @@ const StyledPopup = styled.div`
             background: rgba(0,0,0,0.05);
             border-radius: 3em;
             border: 1px solid white;
-            color: white;
+            color: black;
+            border: 2px solid black;
             box-shadow: 0 0 5px 5px rgba(0,0,0,0.05);
 
             &:hover {
@@ -88,6 +92,7 @@ const StyledPopup = styled.div`
         height: 100vh;
         display: flex;
         z-index: -1;
+        position: absolute;
 
         .imgLoader {
             width: 100%;
@@ -133,72 +138,24 @@ const StyledPopup = styled.div`
                     }
                 }
             }
-      
         }
-    }
-    .gallery {
-        width: 100%;
-        height: 100%;
-        display: flex;
-
-        .productOptions {
-            position: absolute;
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: center;
-            top: 20%;
-            left: 8%;
-            background-color: rgba(255,255,255,0.5);
-            backdrop-filter: blur(4px);
-            padding: 3em;
-            
-            .header { 
-                display: flex;
-                flex-flow: column nowrap;
-                justify-content: center;
-                align-items: center;
-
-                * {margin: 0}
-            }
-        }
-        .specs {
-            position: absolute;
-            top: 20%;
-            right: 15%;
-            background: rgba(255,255,255,0.55);
-            padding: 2em;
-            border-radius: 0.5em;
-            backdrop-filter: blur(5px);
-
-            button {
-                &.active {
-                    &+.vertical {
-                        background: red;
-                        width: 100px;
-                        height: 100px;
-                    }  
-                }
-            }
-            .vertical {
-                display: flex;
-                transition: 250ms;
-                height: 0;
-            }
-    
-            
-        }
-
-
     }
 
     .page {
-        
-        background: white;
-        width: max-content;
-        position: absolute;
-        bottom: 0;
-        left: 35%;
-        padding: 1.5em 3em;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        .pageContainer {
+            background: white;
+            width: max-content;
+            height: clamp(115px, 15%, 30%);
+            position: relative;
+            bottom: 0;
+            padding: 1.5em 3em;
+            box-shadow: 0 -10px 3em -30px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
         
        
         button {
@@ -221,6 +178,164 @@ const StyledPopup = styled.div`
                 cursor: not-allowed;
                 user-select: none;
             }
+        }
+        
+    }
+    .gallery {
+        width: 100%;
+        height: clamp(0px,calc(100% - clamp(115px, 15%, 30%)),85%);
+        display: flex;
+        position: relative;
+        
+
+    
+        .infoWrapper {
+            @media (orientation: portrait) {
+                --unit: vmax;
+
+                flex-flow: column;
+
+                .headerContainer {
+                    transform: translateY(70%);
+
+                    .header {
+                        padding: 2vmin;
+                        background-color: rgba(255,255,255,0.5);
+                        backdrop-filter: blur(10px)brightness(1.2);
+                        border-radius: 1em;
+                    }
+
+                }
+                .specs {
+                    --p: 0;
+
+                    flex-flow: column nowrap;
+                    align-items: start;
+                    justify-content: center;
+                    padding: 2vmin;
+                    transform: translateY(5%);
+
+                    .closeSpecsContainer {
+                        align-self: center !important;
+                    }
+                }
+            }
+            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            flex-flow: row wrap;
+            width: 100%;
+            height: 100%;
+            
+
+            .headerContainer {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                flex: 1 1 0%;
+                height: 100%;
+                
+                .header {
+                    height: max-content;
+                    position: relative;
+                    top: 15%;
+                    
+                    .headerItems { 
+                        display: flex;
+                        flex-flow: column nowrap;
+                        justify-content: center;
+                        align-items: center;
+                        background: rgba(255,255,255,0.5);
+                        padding: 1em;
+                        backdrop-filter: blur(10px)saturate(2);
+                        border-radius: 1em;
+
+                        * {margin: 0}
+                    } 
+                } 
+              
+            }
+            .specs {
+                position: relative;
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                padding: calc(clamp(0px,25vmin,180px) + 0px) clamp(0px,30vmin, 240px * var(--p, 1)) 0 0;
+                justify-content: start;
+                flex: 1 1 50%;
+                gap: 2vh;
+                
+                .closeSpecsContainer {
+                    background: rgba(255,255,255,0.5);
+                    backdrop-filter: blur(10px)saturate(2);
+                    align-self: end;
+                    width: max-content;
+                    padding: 1em;
+                    border-radius: 1em;
+                    transition: 300ms;
+
+                    button {
+                        width: clamp(85px, 22vmin, 100px);
+
+                    }
+                    &.active {
+                        button {
+                            text-shadow: 0px -1px black;
+                            border-color: white;
+                            box-shadow: 0 0 1em 1em rgba(255,255,255,0.3), 2px 0 1px 1px rgba(0,0,0,0.5);
+                        }
+
+                        &+.specsContainer {
+                            height: 100%;
+                            background: white;
+                            backdrop-filter: blur(10px);
+                            transform-origin: top right;
+                            transform: scale(1);
+                        }  
+                    }
+
+                }
+                .specsContainer {
+                    position: relative;
+                    background-color: rgba(255,255,255,0.5);
+                    transition: 250ms;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 1em 1em  0 0;
+                    padding: 3em;
+                    box-shadow: 0 -10px 2em -30px;
+                    z-index: -1;
+                    transform: translateY(150%);
+                    overflow: scroll;
+                    h1 {display: initial}
+
+                    .tableItems {
+                        display: flex;
+                        flex-flow: row wrap;
+                        gap: 1em;
+                        overflow: scroll;
+                        max-height: 70%;
+
+                        .tableField {
+                            display: flex;
+                            flex-flow: row wrap;
+                            flex: calc(50% - 3em);
+                            border-bottom: 1px solid #c9c9c9;
+                            justify-content: space-between;
+                            padding: 0 1em;
+
+                                
+                            .fieldKey {
+                                text-transform: capitalize;
+                                font-weight: 600;
+                            }
+                            .fieldValue {}
+
+                        }
+                    }
+                } 
+                
+            }
+
         }
         
     }
