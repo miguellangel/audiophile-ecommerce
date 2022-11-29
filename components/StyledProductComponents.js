@@ -263,6 +263,7 @@ const StyledPopup = styled.div`
                 justify-content: start;
                 flex: 1 1 50%;
                 gap: 2vh;
+                z-index: 2;
                 
                 .closeSpecsContainer {
                     background: rgba(255,255,255,0.5);
@@ -303,16 +304,16 @@ const StyledPopup = styled.div`
                     border-radius: 1em 1em  0 0;
                     padding: 3em;
                     box-shadow: 0 -10px 2em -30px;
-                    z-index: -1;
+                    z-index: 2;
                     transform: translateY(150%);
-                    overflow: scroll;
+
                     h1 {display: initial}
 
                     .tableItems {
                         display: flex;
                         flex-flow: row wrap;
                         gap: 1em;
-                        overflow: scroll;
+                        overflow-y: scroll;
                         max-height: 70%;
 
                         .tableField {
