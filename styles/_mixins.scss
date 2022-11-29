@@ -38,3 +38,6 @@
 
 $landscapeOnly: (mobile-landscape, tablet-landscape, desktop-landscape);
 $portraitOnly: (mobile-portrait, tablet-portrait, desktop-portrait);
+$mobile: (mobile-portrait, mobile-landscape);
+$tablet: (tablet-portrait, tablet-landscape);
+$desktop: (desktop-portrait, desktop-landscape);

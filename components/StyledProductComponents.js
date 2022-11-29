@@ -145,6 +145,7 @@ const StyledPopup = styled.div`
         display: flex;
         justify-content: center;
         width: 100%;
+        z-index: var(--zI, 1);
 
         .pageContainer {
             background: white;
@@ -263,7 +264,7 @@ const StyledPopup = styled.div`
                 justify-content: start;
                 flex: 1 1 50%;
                 gap: 2vh;
-                z-index: 2;
+                
                 
                 .closeSpecsContainer {
                     background: rgba(255,255,255,0.5);
