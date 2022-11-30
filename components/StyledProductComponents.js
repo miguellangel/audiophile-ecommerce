@@ -103,6 +103,8 @@ const StyledPopup = styled.div`
             background-image: var(--bgURL, '');
             background-color: white;
             background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             transform-origin: left;
             transition: 750ms cubic-bezier(0.5, 0, 0.75, 0);
 

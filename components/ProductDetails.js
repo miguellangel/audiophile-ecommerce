@@ -21,18 +21,31 @@ const Portal = ({children}) => {
 const ImageBg = ({img, idx}) => {
     const divBgRef = useRef()
     useEffect(() => {
-        divBgRef.current.style.setProperty('--bgURL', `url("${img.link}")`)
+        divBgRef.current.style.setProperty('--bgURL', `url("${img.contentUrl}")`)
     })
     return (
         <div ref={divBgRef} id={'img-'+idx} className={`imgLoader${idx === 0 ? ' active' : ''}`}></div>
     )
 }
-const ImageSlider = ({children}) => {
+const ImageSlider = ({children, product}) => {
     const imgArr = useRef([...images.items])
+    const [imgsArr, setImages] = useState(null)
     const imgIndx = useRef(0)
     const imagesDiv = useRef()
     const activeArr = useRef()
     
+    const getImages = async product => {
+        const encode = item => encodeURI(item.replaceAll('_', '\s'))
+        /* let res = await fetch(`/api/imagesearch/mockimages`)
+            .then(v => v.json())
+            .then(d => setImages(d)) */
+        let res= await fetch(`/api/imagesearch/${encode(product.current.name)}/${encode(product.current.manufacturer)}/7`)
+            .then(v => v.json())
+            .then(d => {
+                setImages(d.value)
+            })
+    }
+
     const handleSlideshow = e => {
         // turn this string value into bool
         let isGoingForward = JSON.parse(e.target.value)
@@ -49,7 +62,7 @@ const ImageSlider = ({children}) => {
         })
         let [prev, cur, next] = getItems(['prev', 'cur', 'next'])
         // cool method to toggle an item's class
-        let toggle = (item, cls='flip') => item.classList.toggle(cls)
+        let toggle = (item, cls='flip') => item?.classList.toggle(cls)
         // toggle flip class on prev/cur if direction -/+
         isGoingForward ? toggle(cur) : toggle(prev)
         // only preload next if not in the first batch and direction is forwards
@@ -73,14 +86,15 @@ const ImageSlider = ({children}) => {
 
     useEffect(() => {
         // populate the array once on render
+        if (!imgsArr) getImages(product)
         activeArr.current = document.querySelectorAll('.imgLoader')
-    })
+    }, [imgsArr])
     return (
         <>
             <div ref={imagesDiv}className="images">
-                {imgArr.current.map((img, indx) =>
+                {imgsArr && imgsArr.map((img, indx) =>
                     <ImageBg key={'image'+indx} img={img} idx={indx}/>
-                )}
+                ) || <div>LOADING</div>}
             </div>
             {children}
             <div className={`${styles.page} page`}>
@@ -124,7 +138,7 @@ const ProductDetails = ({ product, toggleMount }) => {
             <Portal>
                 <StyledPopup theme={anim} className={`${styles.productDetailsWrapper} ${styles['swing-in-top-fwd']}`} ref={wrapper} >
                     <div className={`closePopupContainer`}><button onClick={handleUnmount}>✕</button></div>
-                    <ImageSlider>
+                    <ImageSlider product={product}>
                         <div className="gallery">
                             <div className="infoWrapper">
                                 <div className="headerContainer">

@@ -20,7 +20,6 @@ const TableDetails = ({data}) => {
                 let temp;
                 let filteredKeys = Object.keys(data).filter((i, idx) => data[i] !== "unspecified")
                 let filteredArr = filteredKeys.map(function(i, idx) {return {[i]: data[i]}})
-                console.log(filteredArr)
                 setProduct(filteredArr)
             })
     }
@@ -69,10 +68,6 @@ const DetailPropsView = ({product}) => {
         
         el.hasAttribute('style') ? el.removeAttribute('style') : el.setAttribute('style', '--zI: -1')
     }
-
-    useEffect(() => {
-        console.log("RENDERS TWICE?")
-    }) 
 
     return (
         <>
