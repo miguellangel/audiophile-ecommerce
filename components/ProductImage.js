@@ -23,7 +23,6 @@ const ProductImage = ({index, name, manufacturer}) => {
     const getImage = async () => {
         const encode = item => encodeURI(item.replaceAll('_', '\s'))
         let res= await fetch(`/api/imagesearch/${encode(name)}/${encode(manufacturer)}/1`).then(v => v.json())
-        //let res = await fetch('/api/imagesearch/mockimages').then(v => v.json())
         let img = res[index] ?? res.value?.shift()
         let thumbnail = img?.thumbnailUrl
         let accent = img?.accentColor
