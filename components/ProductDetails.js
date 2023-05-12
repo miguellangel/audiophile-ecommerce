@@ -42,7 +42,7 @@ const ImageSlider = ({children, product}) => {
         let res= await fetch(`/api/imagesearch/${encode(product.current.name)}/${encode(product.current.manufacturer)}/7`)
             .then(v => v.json())
             .then(d => {
-                setImages(d??d.value)
+                setImages(d.value)
             })
     }
 
